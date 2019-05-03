@@ -1,24 +1,35 @@
 {
   "name": "dat-a-pet2",
   "version": "0.1.0",
-  "private": true,
+  "main": "server.js",
   "dependencies": {
     "animejs": "^3.0.1",
     "axios": "^0.18.0",
     "bcrypt-nodejs": "0.0.3",
+    "dotenv": "^8.0.0",
     "express-session": "^1.16.1",
+    "if-env": "^1.0.4",
     "materialize-css": "^1.0.0-rc.2",
+    "mysql2": "^1.6.5",
     "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.0",
+    "sequelize": "^5.8.3",
     "session": "^0.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "heroku-postbuild": "npm run build"
+   
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
   }
 }

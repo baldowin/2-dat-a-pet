@@ -5,7 +5,7 @@
 
 module.exports = function (sequelize, DataTypes) {
   
-    var pets = sequelize.define("pets", {
+    var cats = sequelize.define("cats", {
       petId:
       {
         type: DataTypes.INTEGER,
@@ -54,13 +54,13 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.TEXT,
       }
     });
-    pets.associate = function (models) {
-      pets.belongsTo(models.owners, {
+    cats.associate = function (models) {
+      cats.belongsTo(models.owners, {
         foreignKey: {
           allowNull: false
         }
       });
-      pets.hasMany(models.petNotes, {
+      cats.hasMany(models.petNotes, {
         onDelete: "cascade"
       });
       pets.hasOne(models.dogImmunizations, {
