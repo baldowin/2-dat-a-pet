@@ -1,6 +1,6 @@
 import React from 'react';
 import anime from 'lib/anime.es.js';
-
+import  './logo.css';
 
 function Logo() {
     anime.timeline({ loop: true })
