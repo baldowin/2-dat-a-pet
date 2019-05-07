@@ -2,13 +2,19 @@ import React from 'react';
 
 
 function Homepage() {
-    $('.dropdown-trigger').dropdown();
-    $('.carousel.carousel-slider').carousel({
-        fullWidth: true
-      });
+    // $('.dropdown-trigger').dropdown();
+    // $('.carousel.carousel-slider').carousel({
+    //     fullWidth: true
+    //   });
     return (
-        
+     
         <div>
+        <script>
+        $('.dropdown-trigger').dropdown();
+        $('.carousel.carousel-slider').carousel({
+            // fullWidth: true
+          });
+          </script>
             <h1>logo here</h1>
             //-- Dropdown Trigger -->
             <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
