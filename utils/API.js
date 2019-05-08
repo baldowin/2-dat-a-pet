@@ -13,22 +13,26 @@ export default {
   },
   // Gets all the pets of a user
   getUserPets: function(id) {
-    return axios.get("/api/user/" + id+"/pet");
+    return axios.get("/api/users/pets/"+id);
   },
   // Gets info of a user
   getUser: function(id) {
-    return axios.get("/api/user/" + id);
+    return axios.get("/api/users/" + id);
   },
   //Gets a single pet
   getPet: function(id){
-    return axios.get("/api/pet/"+id);
+    return axios.get("/api/pets/"+id);
   },
   // Deletes the book with the given id
   deletePet: function(id) {
-    return axios.delete("/api/pet/" + id);
+    return axios.delete("/api/pets/" + id);
   },
-  // Saves a book to the database
-  addPet: function(bookData) {
-    return axios.post("/api/pet", bookData);
+  // Saves a Pet to the database
+  addPet: function(petData) {
+    return axios.post("/api/pets", petData);
+  },
+  // Updates a Pet
+  updatePet: function(id) {
+    return axios.put("/api/pets/"+id);
   }
 };
