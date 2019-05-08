@@ -1,11 +1,11 @@
 import React from 'react';
-
+import M from 'materialize-css/dist/js/materialize.min.js'
 class NavBar extends React.Component {
     
     render() {
-        // plugin in for mobil adaptation on nave bar
-        $(document).ready(function(){
-            $('.sidenav').sidenav();
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems, options);
           });
         return (
             <div>
