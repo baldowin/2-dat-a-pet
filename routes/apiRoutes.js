@@ -15,7 +15,7 @@ module.exports = function (app) {
         });
     });
 
-    app.get("/api/admin/pets", isAuthenticated, isAdmin, function (req, res) {
+    app.get("/api/admin/users", isAuthenticated, isAdmin, function (req, res) {
         db.owners.findAll({
         }).then(function (view) {
             res.json(view);
@@ -138,7 +138,7 @@ module.exports = function (app) {
 
   ////START OF AUTH APIS//////////////
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
-    res.json("/dashboard");
+    res.json("/dashboard");//this should be something else
   });
 
   // Auth // Signup - new user creation - 
