@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
       phone: {
         type: DataTypes.BIGINT
       },
-      authorizedAgents:
+      authorizedOwners:
       {
         type: DataTypes.STRING,
       }
@@ -27,10 +27,10 @@ module.exports = function (sequelize, DataTypes) {
       });
     };
   
-    // owners.associate = function (models) {
-    //   owners.hasMany(models.pets, {
-    //     onDelete: "cascade"
-    //   });
-    // };
+    owners.associate = function (models) {
+      owners.hasMany(models.pets, {
+        onDelete: "cascade"
+      });
+    };
     return owners;
   };
