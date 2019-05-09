@@ -3,37 +3,60 @@ var passport = require("../config/passport");
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 var isOwner = require("../config/middleware/isOwner");
 var isAdmin = require("../config/middleware/isOwner");
+var path = require("path");
+
+////////////////////THIS FILE HAS ISAUTHENTICATED AND ISOWNER REMOVED/////////////////////
+
+
+
 
 module.exports = function (app) {
+  ///////////////////////ADMIN ADMIN ADMIN ADMIN ADMIN//////////////////////////////
 
-    //admin routes
-    app.get("/api/admin/pets", isAuthenticated, isAdmin, function (req, res) {
-        db.owners.findAll({
-            include:[db.pets]
-        }).then(function (view) {
-            res.json(view);
-        });
+  //admin routes
+  app.get("/api/admin/pets", function (req, res) {
+    db.owners.findAll({
+      include: [db.pets]
+    }).then(function (view) {
+      res.json(view);
     });
+  });
 
+<<<<<<< HEAD
     app.get("/api/admin/users", isAuthenticated, isAdmin, function (req, res) {
         db.owners.findAll({
         }).then(function (view) {
             res.json(view);
         });
+=======
+  app.get("/api/admin/owners", function (req, res) {
+    db.owners.findAll({
+    }).then(function (view) {
+      res.json(view);
+>>>>>>> 95b2b3f5e376543a42c77ed328e31d8000a07a60
     });
+  });
+
+
+  ///////////////////USER USER USER USER USER///////////////////////////////////
 
   // Get all pets of user
-  app.get("/api/users/pets/:id", isAuthenticated, function (req, res) {
+  app.get("/api/users/pets/:id", function (req, res) {
     db.owners.findOne({
-      include: [db.pets],
-      where: { id: req.params.id }
+      where:{ownerId: req.params.id},
+      include: [{
+        model: db.pets,
+        include: {model: db.dogs}
+      }, {
+        model:db.pets, 
+      include: {model:db.cats}}]
     }).then(function (view) {
       res.json(view);
     });
   });
 
   // Get user info
-  app.get("/api/users/:id", isAuthenticated, function (req, res) {
+  app.get("/api/users/:id", function (req, res) {
     db.owners.findOne({
       where: { id: req.params.id }
     }).then(function (view) {
@@ -42,7 +65,7 @@ module.exports = function (app) {
   });
 
   // Get a single pet
-  app.get("/api/pets/:id", isAuthenticated, function (req, res) {
+  app.get("/api/pets/:id", function (req, res) {
     db.pets.findOne({
       where: { id: req.params.id }
     }).then(function (view) {
@@ -61,24 +84,24 @@ module.exports = function (app) {
       //view.dataValues.ownerId
       db.pets.create(req.body).then(function (result) {
         result.dataValues.immunizations = "";
-        function immunizations(result, callback){
-          switch(result.dataValues.petType){
-          case "dog":
-            db.dogImmunizations.create({
-              petPetId: result.dataValues.petId
-            }).then(function(res){
-              result.dataValues.immunizations += JSON.stringify(res.dataValues);
-              callback(result);
-            });
-            break;
-          case "cat":
-            db.catImmunizations.create({
-              petPetId: result.dataValues.petId
-            }).then(function(res){
-              result.dataValues.immunizations += JSON.stringify(res.dataValues);
-              callback(result);
-            });
-            break;
+        function immunizations(result, callback) {
+          switch (result.dataValues.petType) {
+            case "dog":
+              db.dogImmunizations.create({
+                petPetId: result.dataValues.petId
+              }).then(function (res) {
+                result.dataValues.immunizations += JSON.stringify(res.dataValues);
+                callback(result);
+              });
+              break;
+            case "cat":
+              db.catImmunizations.create({
+                petPetId: result.dataValues.petId
+              }).then(function (res) {
+                result.dataValues.immunizations += JSON.stringify(res.dataValues);
+                callback(result);
+              });
+              break;
           }
         }
         function endThen() {
@@ -90,56 +113,35 @@ module.exports = function (app) {
   });
 
   // Delete a pet
-  app.delete("/api/pets/:id", function(req, res) {
-    db.pets.destroy({ where: {petId: req.params.id}}).then(function(result) {
-        res.json(result);
+  app.delete("/api/pets/:id", function (req, res) {
+    db.pets.destroy({ where: { petId: req.params.id } }).then(function (result) {
+      res.json(result);
     });
   });
 
 
   // Updates a pet
-  app.put("/api/pets/:id", function(req,res) {
-    db.pets.update(req.body,{
-        where: {petId: req.params.id}
-    }).then(function(result){
-        res.json(result);
+  app.put("/api/pets/:id", function (req, res) {
+    db.pets.update(req.body, {
+      where: { petId: req.params.id }
+    }).then(function (result) {
+      res.json(result);
     });
   });
-
-
-
-//THINGS NOT IN utils/API.js :
-
-  //TBD
-  app.get("/api/pets/immunizations/:petType/:id", isAuthenticated, isOwner, function(req, res){
-    switch(req.params.petType){
-    case "dog":
-      db.dogImmunizations.findOne({
-        where: {
-          petPetId: req.params.id
-        }
-      }).then(function(view){
-        res.json(view);
-      });
-      break;
-    case "cat":
-      db.catImmunizations.findOne({
-        where: {
-          petPetId: req.params.id
-        }
-      }).then(function(view){
-        res.json(view);
-      });
-      break;
-    }
-  });
-
-
 
   ////START OF AUTH APIS//////////////
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
     res.json("/dashboard");//this should be something else
   });
+
+  app.get("/login", function (req, res) {
+  if (req.user) {
+    res.redirect("/dashboard");
+  } else {
+    // res.render("login");
+    res.redirect("/signup");
+  }
+});
 
   // Auth // Signup - new user creation - 
   app.post("/api/signup", function (req, res) {
@@ -153,8 +155,8 @@ module.exports = function (app) {
         ownerName: req.body.name,
         phone: req.body.phone,
         //authorizedAgents: req.body.agents Future functionality
-      }).then(function(){ 
-      // res.json("success");
+      }).then(function () {
+        // res.json("success");
         res.redirect(307, "/api/login");
       }).catch(function (err) {
         console.log(err);
@@ -171,12 +173,7 @@ module.exports = function (app) {
     res.redirect("/");
   });
 
-  
-
-
-
-
-
-
-
+  // app.get("*", (req, res) => {
+  //   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  // });
 };
