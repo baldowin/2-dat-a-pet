@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-  app.use(express.static("public"));
+app.use(express.static("public"));
 
 // Define API routes here
 //Project 2- does this route need to be a server route for authentication
@@ -51,7 +51,7 @@ app.get("*", (req, res) => {
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
-}else{
+} else {
   syncOptions.force = true;
 }
 
@@ -65,4 +65,71 @@ db.sequelize.sync(syncOptions).then(function () {
       PORT
     );
   });
+
+  //initial seed
+  // if (process.env.NODE_ENV === "production") {
+  //   //do nothing
+  // } else {
+    db.users.create({
+      //if we use bulkCreate you have to add [array]
+      email: "unique@email.com",
+      password: "TEST",
+      owner: true,
+      CSR: true,
+      admin: true
+    }).then(function () {
+      db.owners.create({
+        //if we use bulkCreate you have to add [array]
+        ownerName: "Tucker",
+        ownerEmail: "unique@email.com",
+        phone: 5558675309,
+        authorizedAgents: "",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }).then(function (view) {
+        db.pets.bulkCreate([
+          {
+            petType: "Dog",
+            ownerOwnerId: view.dataValues.ownerId,
+            //tbe above becomes view[i] if we use bulkCreate for owners
+            createdAt: new Date(),
+            updatedAt: new Date()
+          }, {
+            petType: "Cat",
+            ownerOwnerId: view.dataValues.ownerId,
+            createdAt: new Date(),
+            updatedAt: new Date()            
+          }]).then(function (view) {
+            db.dogs.create({
+              petPetId: view[0].dataValues.petId,
+              petName: "Evil",
+              imageURL: " ",
+              birthMonth: 06,
+              birthYear: 66,
+              petSubtype: "Weiner",
+              gender: "A-gendered Demon",
+              neutered: true,
+              medicalHistory: "chronic possessions",
+              createdAt: new Date(),
+              updatedAt: new Date()
+            });
+            db.cats.create({
+              petPetId: view[1].dataValues.petId,
+              petName: "Floyd",
+              imageURL: " ",
+              birthMonth: 01,
+              birthYear: 18,
+              petType: "Cat",
+              petSubtype: "Cheshire",
+              gender: "Male",
+              neutered: false,
+              medicalHistory: "suffers long boughts of disappearing",
+              createdAt: new Date(),
+              updatedAt: new Date(),
+              FVRCP_2_months: true
+            });
+          });
+      });
+    });
+  // };
 });
