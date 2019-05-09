@@ -1,0 +1,22 @@
+h3 {
+    text-align: center
+}
+h4 {
+    position: relative;
+    bottom: 77px;
+    left: 10px;
+    color: white;
+}
+.sidenav-trigger {
+    position: relative;
+    float: right;
+    right: 10px;
+    top: -52px;
+}
+.modal-trigger {
+    position: relative;
+
+    float: right;
+    right: 20px;
+    top: -52px;
+}
