@@ -22,18 +22,10 @@ module.exports = function (app) {
     });
   });
 
-<<<<<<< HEAD
-    app.get("/api/admin/users", isAuthenticated, isAdmin, function (req, res) {
-        db.owners.findAll({
-        }).then(function (view) {
-            res.json(view);
-        });
-=======
   app.get("/api/admin/owners", function (req, res) {
     db.owners.findAll({
     }).then(function (view) {
       res.json(view);
->>>>>>> 95b2b3f5e376543a42c77ed328e31d8000a07a60
     });
   });
 
