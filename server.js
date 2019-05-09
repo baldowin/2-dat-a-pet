@@ -55,6 +55,9 @@ if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
 }
 
+db.agents = db.sequelize.define('agents');
+  db.pets.belongsToMany(db.owners, {through: 'agents'});
+  db.owners.belongsToMany(db.pets, {as: 'owner', through: 'agents'});
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function () {
@@ -128,6 +131,13 @@ db.sequelize.sync(syncOptions).then(function () {
               updatedAt: new Date(),
               FVRCP_2_months: true
             });
+              //id's in the database have an index of 1
+              db.pets.findOne({where: {petId: 1}}).then(function(pet){
+                pet.addOwner(ownerOwnerId=1);
+              });
+              db.pets.findOne({where: {petId: 2}}).then(function(pet){
+                pet.addOwner(ownerOwnerId=1);
+              });
           });
       });
     });
