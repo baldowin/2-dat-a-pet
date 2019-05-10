@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    var owners = sequelize.define("owners", {
+    var Owner = sequelize.define("Owner", {
       ownerId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -18,19 +18,18 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING,
       }
     });
-    owners.associate = function (models) {
-      owners.belongsTo(models.users, {
-        as: "owners",
+    Owner.associate = function (models) {
+      Owner.belongsTo(models.User, {
         foreignKey: {
           allowNull: false
         }
       });
     };
   
-    owners.associate = function (models) {
-      owners.hasMany(models.pets, {
+    Owner.associate = function (models) {
+      Owner.hasMany(models.Pet, {
         onDelete: "cascade"
       });
     };
-    return owners;
+    return Owner;
   };

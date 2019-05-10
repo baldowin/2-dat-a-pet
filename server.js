@@ -21,8 +21,8 @@ app.use(passport.session());
 var syncOptions = { force: false };
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
-}else{
-app.use(express.static("public"));
+} else {
+  app.use(express.static("public"));
 }
 
 require("./routes/apiRoutes")(app);
@@ -45,9 +45,23 @@ if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
 }
 
-db.agents = db.sequelize.define('agents');
-  db.pets.belongsToMany(db.owners, {through: 'agents'});
-  db.owners.belongsToMany(db.pets, {as: 'owner', through: 'agents'});
+// UserProject = sequelize.define('user_project', {
+//   role: Sequelize.STRING
+// });
+// User.belongsToMany(Project, { through: UserProject });
+// Project.belongsToMany(User, { through: UserProject });
+// // through is required!
+
+// user.addProject(project, { through: { role: 'manager' }});
+// All methods allow you to pass either a persisted instance, its primary key, or a mixture:
+
+// Project.create({ id: 11 }).then(project => {
+//   user.addProjects([project, 12]);
+// });
+
+Agents = db.sequelize.define('agents');
+db.Pet.belongsToMany(db.Owner, { through: Agents });
+db.Owner.belongsToMany(db.Pet, { through: Agents });
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function () {
@@ -63,73 +77,116 @@ db.sequelize.sync(syncOptions).then(function () {
   // if (process.env.NODE_ENV === "production") {
   //   //do nothing
   // } else {
-    db.users.create({
+  db.User.create({
+    //if we use bulkCreate you have to add [array]
+    email: "unique@email.com",
+    password: "TEST",
+    owner: true,
+    CSR: true,
+    admin: true
+  }).then(function () {
+    db.Owner.create({
       //if we use bulkCreate you have to add [array]
-      email: "unique@email.com",
-      password: "TEST",
-      owner: true,
-      CSR: true,
-      admin: true
-    }).then(function () {
-      db.owners.create({
-        //if we use bulkCreate you have to add [array]
-        ownerName: "Tucker",
-        ownerEmail: "unique@email.com",
-        phone: 5558675309,
-        authorizedAgents: "",
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }).then(function (view) {
-        db.pets.bulkCreate([
-          {
-            petType: "Dog",
-            ownerOwnerId: view.dataValues.ownerId,
-            //tbe above becomes view[i] if we use bulkCreate for owners
+      ownerName: "Tucker",
+      UserEmail: "unique@email.com",
+      phone: 5558675309,
+      authorizedAgents: "",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }).then(function (view) {
+      db.Pet.bulkCreate([
+        {
+          petType: "Dog",
+          OwnerOwnerId: view.dataValues.ownerId,
+          //tbe above becomes view[i] if we use bulkCreate for owners
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }, {
+          petType: "Cat",
+          OwnerOwnerId: view.dataValues.ownerId,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }]).then(function (view) {
+          db.Dog.create({
+            PetPetId: view[0].dataValues.petId,
+            petName: "Evil",
+            imageURL: " ",
+            birthMonth: 06,
+            birthYear: 66,
+            petSubtype: "Weiner",
+            gender: "A-gendered Demon",
+            neutered: true,
+            medicalHistory: "chronic possessions",
             createdAt: new Date(),
             updatedAt: new Date()
-          }, {
+          });
+          db.Cat.create({
+            PetPetId: view[1].dataValues.petId,
+            petName: "Floyd",
+            imageURL: " ",
+            birthMonth: 01,
+            birthYear: 18,
             petType: "Cat",
-            ownerOwnerId: view.dataValues.ownerId,
+            petSubtype: "Cheshire",
+            gender: "Male",
+            neutered: false,
+            medicalHistory: "suffers long boughts of disappearing",
             createdAt: new Date(),
-            updatedAt: new Date()            
-          }]).then(function (view) {
-            db.dogs.create({
-              petPetId: view[0].dataValues.petId,
-              petName: "Evil",
-              imageURL: " ",
-              birthMonth: 06,
-              birthYear: 66,
-              petSubtype: "Weiner",
-              gender: "A-gendered Demon",
-              neutered: true,
-              medicalHistory: "chronic possessions",
+            updatedAt: new Date(),
+            FVRCP_2_months: true
+          });
+          db.User.create({
+            //if we use bulkCreate you have to add [array]
+            email: "TEST@email.com",
+            password: "TEST",
+            owner: true,
+            CSR: true,
+            admin: true
+          }).then(function () {
+            db.Owner.create({
+              //if we use bulkCreate you have to add [array]
+              ownerName: "Dale",
+              UserEmail: "TEST@email.com",
+              phone: 5558675309,
+              authorizedAgents: "",
               createdAt: new Date(),
               updatedAt: new Date()
-            });
-            db.cats.create({
-              petPetId: view[1].dataValues.petId,
-              petName: "Floyd",
-              imageURL: " ",
-              birthMonth: 01,
-              birthYear: 18,
-              petType: "Cat",
-              petSubtype: "Cheshire",
-              gender: "Male",
-              neutered: false,
-              medicalHistory: "suffers long boughts of disappearing",
-              createdAt: new Date(),
-              updatedAt: new Date(),
-              FVRCP_2_months: true
-            });
-              //id's in the database have an index of 1
-              db.pets.findOne({where: {petId: 1}}).then(function(pet){
-                pet.addOwner(ownerOwnerId=1);
+            }).then(function (view) {
+              db.Pet.create({
+                petType: "Dog",
+                OwnerOwnerId: view.dataValues.ownerId,
+                //tbe above becomes view[i] if we use bulkCreate for owners
+                createdAt: new Date(),
+                updatedAt: new Date()
+              }).then(function (view) {
+                db.Dog.create({
+                  PetPetId: view.dataValues.petId,
+                  petName: "Tomas",
+                  imageURL: " ",
+                  birthMonth: 06,
+                  birthYear: 66,
+                  petSubtype: "Shitzu",
+                  gender: "Female",
+                  neutered: true,
+                  medicalHistory: "some Medical History",
+                  createdAt: new Date(),
+                  updatedAt: new Date()
+                }).then(function (view) {
+                  //id's in the database have an index of 1
+                  db.Pet.findOne({ where: { petId: 1 } }).then(function (Pet) {
+                    Pet.addOwner(ownerOwnerId = 2);
+                  });
+                  db.Pet.findOne({ where: { petId: 2 } }).then(function (Pet) {
+                    Pet.addOwner(ownerOwnerId = 2);
+                  });
+                  db.Pet.findOne({ where: { petId: 3 } }).then(function (Pet) {
+                    Pet.addOwner(ownerOwnerId = 1);
+                  });
+                });
               });
-              db.pets.findOne({where: {petId: 2}}).then(function(pet){
-                pet.addOwner(ownerOwnerId=1);
-              });
+            });
           });
-      });
+        });
     });
-  // };
+  });
 });
