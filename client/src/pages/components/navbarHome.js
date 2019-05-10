@@ -1,27 +1,31 @@
 import React, {Component} from 'react';
 import login from '../components/forms/login/login'
 
+
 // Import Materialize
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 class NavbarHome extends Component {
-    componentDidMount(){
+    componentDidMount() {
         M.AutoInit();
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
-            <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Log In</a>
 
-            
-            <ul id='dropdown1' class='dropdown-content'>
-                <li><a href="#!">one</a></li>
-                <li><a href="#!">two</a></li>
-                <li class="divider" tabindex="-1"></li>
-                <li><a href="#!">About us</a></li>
-                <li><a href="#!">Sign Up</a></li>
-            </ul>
+                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Log in</a>
+
+
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <h4>Log in</h4>
+                        <p>Form here</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Sign Up</a>
+                    </div>
+                </div>
             </div>
         )
     }
