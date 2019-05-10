@@ -16,7 +16,7 @@ function Homepage() {
             <div className="row">
                 <div class="col s12">
                 <Logo />
-            <NavbarHome />
+                <NavbarHome />
                  <Carousel />   
                 </div>
             </div>

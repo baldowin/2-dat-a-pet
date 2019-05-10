@@ -5,7 +5,7 @@ import axios from "axios";
 export default {
   // Gets all pets
   adminPet: function() {
-    return axios.get("/api/admin/pet");
+    return axios.get("/api/admin/pets");
   },
   //Gets all Owners
   adminOwner: function() {
@@ -22,6 +22,18 @@ export default {
   getUser: function(id) {
     return axios.get("/api/users/" + id);
   },
+  // Deletes the User with the given id
+  deleteUser: function(id) {
+    return axios.delete("/api/users/" + id);
+  },
+  // Saves a Pet to the database
+  addUser: function(userData) {
+    return axios.post("/api/users", userData);
+  },
+  // Updates a User
+  updateUser: function(id,userData) {
+    return axios.put("/api/users/"+id,userData);
+  },
   //Gets a single pet
   getPet: function(id){
     return axios.get("/api/pets/"+id);
@@ -35,7 +47,7 @@ export default {
     return axios.post("/api/pets", petData);
   },
   // Updates a Pet
-  updatePet: function(id) {
-    return axios.put("/api/pets/"+id);
+  updatePet: function(id,petData) {
+    return axios.put("/api/pets/"+id,petData);
   }
 };

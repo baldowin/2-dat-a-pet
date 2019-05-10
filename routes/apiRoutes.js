@@ -169,7 +169,7 @@ module.exports = function (app) {
 
   ////START OF AUTH APIS//////////////
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
-    res.json("/dashboard");
+    res.json("/dashboard");//this should be something else
   });
 
   app.get("/login", function (req, res) {
