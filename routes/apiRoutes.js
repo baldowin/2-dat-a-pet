@@ -33,9 +33,9 @@ module.exports = function (app) {
   ///////////////////USER USER USER USER USER///////////////////////////////////
 
   // Get all pets of user
-  app.get("/api/users/pets/:id", function (req, res) {
+  app.get("/api/users/pets", function (req, res) {
     db.owners.findOne({
-      where:{ownerId: req.params.id},
+      where: { ownerEmail: req.user.email },
       include: [{
         model: db.pets,
         include: {model: db.dogs}
