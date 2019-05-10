@@ -4,24 +4,39 @@ import NavBar from './components/navbar/navbar';
 import Card from './components/card/card';
 import Footer from './components/footer'
 import './dashboard.css'
+import API from '../../utils/API'
 
+class Dashboard extends Component {
+    state = {
+        pets: [],
+        assosciatedpets: [],
+    };
+    componentDidMount() {
+        this.loadPets();
+    }
+    loadsPets = () => {
+        API.getUserPets()
+            .then(res => this.setState({ pets: res.data }))
+            .catch(err => console.log(err));
+    };
 
-function Dashboard() {
-    return (
-        <div>
-            < NavBar/>
-            <div className="row">
-                <div className="col s12">
-                    <h3>Your Pets</h3>
-                    <hr></hr>
+    render() {
+        return (
+            <div>
+                < NavBar />
+                <div className="row">
+                    <div className="col s12">
+                        <h3>Your Pets</h3>
+                        < Card />
+                    </div>
+                    <div className="col s12">
+                        <h3>Friends Pet</h3>
+                        < Card />
+                    </div>
                 </div>
-                <div className="col s12">
-                    <h3>Friends Pet</h3>
-                </div>
+                < Footer />
             </div>
-            < Footer/>
-        </div>
-    )
+        )
+    }
 }
-
 export default Dashboard;
