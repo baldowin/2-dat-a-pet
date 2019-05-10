@@ -98,12 +98,14 @@ db.sequelize.sync(syncOptions).then(function () {
         {
           petType: "Dog",
           OwnerOwnerId: view.dataValues.ownerId,
+          PetOwnerId: view.dataValues.ownerId,
           //tbe above becomes view[i] if we use bulkCreate for owners
           createdAt: new Date(),
           updatedAt: new Date()
         }, {
           petType: "Cat",
           OwnerOwnerId: view.dataValues.ownerId,
+          PetOwnerId: view.dataValues.ownerId,
           createdAt: new Date(),
           updatedAt: new Date()
         }]).then(function (view) {
@@ -155,6 +157,7 @@ db.sequelize.sync(syncOptions).then(function () {
               db.Pet.create({
                 petType: "Dog",
                 OwnerOwnerId: view.dataValues.ownerId,
+                PetOwnerId: view.dataValues.ownerId,
                 //tbe above becomes view[i] if we use bulkCreate for owners
                 createdAt: new Date(),
                 updatedAt: new Date()

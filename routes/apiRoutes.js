@@ -77,24 +77,13 @@ module.exports = function (app) {
   });
 
   // Get all pets of user
-  app.get("/api/users/pets/:id", function (req, res) {
+  app.get("/api/users/pets/:email", function (req, res) {
     db.Owner.findOne({
-      where: { ownerId: req.params.id },
-      include: [{
-        model: db.Pet,
-        include: { model: db.Dog }
-      }, {
-        model: db.Pet,
-        include: { model: db.Cat }
-        // }
-        // , {
-        //   model: db.Pet,
-        //   include: [{
-        //     model: db.Dog
-        //   }, {
-        //     model: db.Cat
-        //   }
-        // ]
+      where: { UserEmail: req.params.email },
+      include:[{
+        model: db.Pet, 
+        as: "Pet", 
+        include:[{ model: db.Dog}, { model: db.Cat}]
       }]
     }).then(function (view) {
       res.json(view);

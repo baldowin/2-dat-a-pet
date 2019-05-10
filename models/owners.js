@@ -28,6 +28,7 @@ module.exports = function (sequelize, DataTypes) {
   
     Owner.associate = function (models) {
       Owner.hasMany(models.Pet, {
+        as: "Pet",
         onDelete: "cascade"
       });
     };

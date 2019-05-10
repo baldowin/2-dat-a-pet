@@ -16,6 +16,7 @@ module.exports = function (sequelize, DataTypes) {
     });
     Pet.associate = function (models) {
       Pet.belongsTo(models.Owner, {
+        as: "Pet",
         foreignKey: {
           allowNull: false
         }
