@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import login from '../components/forms/login/login'
 
 // Import Materialize
 import M from 'materialize-css/dist/js/materialize.min.js';
