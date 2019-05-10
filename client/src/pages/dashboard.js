@@ -9,7 +9,7 @@ import API from '../../utils/API'
 class Dashboard extends Component {
     state = {
         pets: [],
-        assosciatedpets: [],
+        associatedpets: [],
     };
     componentDidMount() {
         this.loadPets();
