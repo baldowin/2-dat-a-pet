@@ -33,9 +33,9 @@ module.exports = function (app) {
   ///////////////////USER USER USER USER USER///////////////////////////////////
 
   // Get all pets of user
-  app.get("/api/users/pets/:id", function (req, res) {
+  app.get("/api/users/pets/:email", function (req, res) {
     db.owners.findOne({
-      where:{ownerId: req.params.id},
+      where: { ownerEmail: req.params.email },
       include: [{
         model: db.pets,
         include: {model: db.dogs}
@@ -123,7 +123,7 @@ module.exports = function (app) {
 
   ////START OF AUTH APIS//////////////
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
-    res.json("/dashboard");
+    res.json("/dashboard");//this should be something else
   });
 
   app.get("/login", function (req, res) {
