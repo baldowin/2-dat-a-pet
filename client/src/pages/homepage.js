@@ -3,9 +3,11 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 import NavbarHome from '../pages/components/navbarHome'
 import Carousel from '../pages/components/carousel'
 import Footer from '../pages/components/footer'
-import Logo from '../pages/components/logo/logo'
+// import Logo from '../pages/components/logo/logo'
 import './homepage.css'
 
+
+// REINSTATE LOGO - COMMENTED OUT FOR TESTING PET CARDS////////
 
 function Homepage() {
     return (
@@ -15,7 +17,7 @@ function Homepage() {
             <div>
             <div className="row">
                 <div class="col s12">
-                <Logo />
+                {/* <Logo /> */}
                 <NavbarHome />
                  <Carousel />   
                 </div>
