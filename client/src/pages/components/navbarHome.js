@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import login from '../components/forms/login/login'
+import Login from '../components/forms/login/login';
 
 
 // Import Materialize
@@ -15,17 +15,22 @@ class NavbarHome extends Component {
             <div>
 
                 <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Log in</a>
+                    <div id="modal1" class="modal">
+                        <div class="modal-content">
+                            <h4>Login</h4>
+                                < Login/>
+                        </div>
 
+                        <div class="modal-footer">
+                            {/* <a href="#!" class="modal-close waves-effect waves-green btn-flat" type="submit" name="action">Login In</a>
+                            <i class="material-icons right">send</i> */}
+                            <button class="modal-close btn waves-effect waves-light" type="submit" name="action">Login
+                            <i class="material-icons right">send</i>
+                            </button>
+                        </div>
 
-                <div id="modal1" class="modal">
-                    <div class="modal-content">
-                        <h4>Log in</h4>
-                        <p>Form here</p>
                     </div>
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Sign Up</a>
-                    </div>
-                </div>
+                <a class="waves-effect waves-light btn-flat" href="/signup"></a>
             </div>
         )
     }
