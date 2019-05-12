@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
   
-    var dogs = sequelize.define("dogs", {
+    var Dog = sequelize.define("Dog", {
       petName: {
         type: DataTypes.STRING,
         allowNull: false
@@ -91,13 +91,13 @@ module.exports = function (sequelize, DataTypes) {
           defaultValue: "00;00"
         }
     });
-    dogs.associate = function (models) {
-      dogs.belongsTo(models.pets, {
+    Dog.associate = function (models) {
+      Dog.belongsTo(models.Pet, {
         foreignKey: {
           allowNull: false
         }
       });
     };
-    return dogs;
+    return Dog;
   
   };

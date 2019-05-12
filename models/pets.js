@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
   
-    var pets = sequelize.define("pets", {
+    var Pet = sequelize.define("Pet", {
       petId:
       {
         type: DataTypes.INTEGER,
@@ -14,8 +14,9 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false
       },
     });
-    pets.associate = function (models) {
-      pets.belongsTo(models.owners, {
+    Pet.associate = function (models) {
+      Pet.belongsTo(models.Owner, {
+        as: "Pet",
         foreignKey: {
           allowNull: false
         }
@@ -23,13 +24,13 @@ module.exports = function (sequelize, DataTypes) {
     //   pets.hasMany(models.petNotes, {
     //     onDelete: "cascade"
     //   });
-      pets.hasOne(models.dogs, {
+      Pet.hasOne(models.Dog, {
         onDelete: "cascade"
       });
-      pets.hasOne(models.cats, {
+      Pet.hasOne(models.Cat, {
         onDelete: "cascade"
       });
     };
-    return pets;
+    return Pet;
   
   };

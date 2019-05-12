@@ -3,7 +3,7 @@
 var bcrypt = require("bcrypt-nodejs");
 // Creating our User model
 module.exports = function(sequelize, DataTypes) {
-  var users = sequelize.define("users", {
+  var User = sequelize.define("User", {
     // The email cannot be null, and must be a proper email before creation
     email: {
       type: DataTypes.STRING,
@@ -19,41 +19,40 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    owner: {
+    isOwner: {
       type: DataTypes.TINYINT,
       allowNull: false,
       defaultValue: true
     },
-    CSR: {
+    isCSR: {
       type: DataTypes.TINYINT,
       allowNull: false,
       defaultValue: false
     },
-    admin: {
+    isAdmin: {
       type: DataTypes.TINYINT,
       allowNull: false,
       defaultValue: false
     }
   });
 
-  users.associate = function(models){
-    users.hasOne(models.owners, {
-      as: "owners",
+  User.associate = function(models){
+    User.hasOne(models.Owner, {
       onDelete: "cascade"
     });
   };
   //leverage bcrypt library for our check password hashes
-  users.prototype.validPassword = function(password) {
+  User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
   };
   // the below adds a function that runs when a user record is being created through this model
-  users.addHook("beforeCreate", function(user) {
+  User.addHook("beforeCreate", function(user) {
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     console.log("beforeCreate hook");
   });
-  users.addHook("beforeBulkCreate", function(user) {
+  User.addHook("beforeBulkCreate", function(user) {
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     console.log("bulkCreate hook");
   });
-  return users;
+  return User;
 };
