@@ -3,12 +3,21 @@
 import axios from "axios";
 
 export default {
-  // Gets all pets
-  adminPet: function() {
+  //Gets all associatedPets
+  adminAssociatedPets: function() {
+    return axios.get("/api/admin/associatedPets/:email")
+  },
+  //Gets all pets for single owner
+  //this includes owner data for that single owner
+  adminPets: function(){
+    return axios.get("api/admin/Pets/:email")
+  },
+  // Gets all pets under all Owners
+  adminAllPets: function() {
     return axios.get("/api/admin/pets");
   },
   //Gets all Owners
-  adminOwner: function() {
+  adminAllOwners: function() {
     return axios.get("/api/admin/owner");
   },
   getUserAssociatedPets: function(email){
