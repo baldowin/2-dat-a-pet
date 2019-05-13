@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "server.js",
   "dependencies": {
+    "animejs": "^3.0.1",
     "axios": "^0.18.0",
     "babel-eslint": "^9.0.0",
     "bcrypt-nodejs": "0.0.3",
@@ -12,6 +13,7 @@
     "if-env": "^1.0.4",
     "materialize-css": "^1.0.0-rc.2",
     "mysql2": "^1.6.5",
+    "nodemon": "^1.19.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "sequelize": "^5.8.3",
@@ -34,7 +36,6 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      "not dead",
       "not op_mini all"
     ],
     "development": [
@@ -42,6 +43,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": "10.15.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.0"
