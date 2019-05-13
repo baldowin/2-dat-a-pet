@@ -6,7 +6,7 @@ import logo from './logo.svg';
 import Home from './pages/homepage'
 import Dash from './pages/dashboard'
 import AdminDash from './pages/admindashboard'
-import Signup from './pages/signup'
+import Signup from './pages/signuppage'
 import './App.css';
 
 class App extends Component {
