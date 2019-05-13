@@ -96,9 +96,11 @@ module.exports = function (app) {
   // Get all pets of user
   //updated for newschema
   //does not include a security check
-  app.get("/api/users/pets/:email", function (req, res) {
+
+  //////THIS NO LONGER WORKS FOR ADMIN- IT LOOKS ONLY FOR LOGIN USER////////////////
+  app.get("/api/users/pets", function (req, res) {
     db.Owner.findOne({
-      where: { UserEmail: req.params.email },
+      where: { UserEmail: req.user.email },
       include: [{
         model: db.Pet,
         as: "Pet",

@@ -24,8 +24,8 @@ export default {
     return axios.get("/api/user/associatedPets/"+email);
   },
   // Gets all the pets of a user
-  getUserPets: function(email) {
-    return axios.get("/api/users/pets/"+email);
+  getUserPets: function() {
+    return axios.get("/api/users/pets/");
   },
   // Gets info of a user
   getUser: function(id) {
