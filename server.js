@@ -17,6 +17,7 @@ app.use(session({ secret: "jamesCat", resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+require("./routes/apiRoutes")(app);
 
 var syncOptions = { force: false };
 if (process.env.NODE_ENV === "production") {
@@ -25,7 +26,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("public"));
 }
 
-require("./routes/apiRoutes")(app);
+
 
 
 // Send every other request to the React app
