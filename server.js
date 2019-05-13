@@ -103,7 +103,7 @@ db.sequelize.sync(syncOptions).then(function () {
           createdAt: new Date(),
           updatedAt: new Date()
         }, {
-          petType: "Cat",
+          petType: "Dog",
           OwnerOwnerId: view.dataValues.ownerId,
           PetOwnerId: view.dataValues.ownerId,
           createdAt: new Date(),
@@ -122,17 +122,17 @@ db.sequelize.sync(syncOptions).then(function () {
             createdAt: new Date(),
             updatedAt: new Date()
           });
-          db.Cat.create({
+          db.Dog.create({
             PetPetId: view[1].dataValues.petId,
             petName: "Floyd",
             imageURL: " ",
             birthMonth: 01,
             birthYear: 18,
             petType: "Cat",
-            petSubtype: "Cheshire",
+            petSubtype: "Red Healer",
             gender: "Male",
             neutered: false,
-            medicalHistory: "suffers long boughts of disappearing",
+            medicalHistory: "chews everything",
             createdAt: new Date(),
             updatedAt: new Date(),
             FVRCP_2_months: true
