@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js'
+import Addapet from '../forms/addapet/addapet';
 
 
 
@@ -36,7 +37,7 @@ class Navbar extends Component {
                 <div id="modal1" class="modal">
                     <div class="modal-content">
                         <h4>Pet Creator</h4>
-                        <p>A Form Here</p>
+                                < Addapet/>
                     </div>
                     <div class="modal-footer">
                         <a href="#!" class="modal-close waves-effect waves-green btn-flat">Confirm</a>
