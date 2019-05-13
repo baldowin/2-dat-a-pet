@@ -34,7 +34,7 @@ class NavbarHome extends Component {
           })
             .then(result => 
             //   console.log(result)
-              // ,
+            //   ,
               window.location.replace(result.data)
               )
             .catch(err => console.log(err));

@@ -15,7 +15,8 @@ class Dashboard extends Component {
         this.loadPets();
     }
     loadPets = () => {
-        API.getUserPets('TEST@email.com')
+        // console.log(req.body);
+        API.getUserPets()
             .then(res =>this.setState({ pets: res.data.Pet }),
             // console.log("api call"),
             //  console.log(res.data.Pet),
