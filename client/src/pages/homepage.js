@@ -14,16 +14,16 @@ function Homepage() {
         <div>
             
             <div>
-            <div className="row">
-                <div class="col s12">
-                <Logo />
-                <NavbarHome />
-                 <Carousel />   
+                <div className="row">
+                    <div class="col s12">
+                    <Logo />
+                    <NavbarHome />
+                    <Carousel />   
+                    </div>
                 </div>
             </div>
-            
-            </div>
-            <Footer />
+                <Footer />
+
         </div>
     )
 }
