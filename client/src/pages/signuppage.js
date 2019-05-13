@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUp from './components/forms/signup/signup'
+import SignUp from './components/forms/signUp/signup'
 import Footer from './components/footer'
 function SignUpPage(){
     return(
