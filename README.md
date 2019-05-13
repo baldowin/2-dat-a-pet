@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Deployed App
+
+This app can be seen deployed at: [https://datapet2.herokuapp.com/](https://datapet2.herokuapp.com/)
+
 ## Available Scripts
 
 In the project directory, you can run:
