@@ -35,9 +35,14 @@ export default {
   deleteUser: function(id) {
     return axios.delete("/api/users/" + id);
   },
-  // Saves a Pet to the database
+  // Saves a User to the database
   addUser: function(userData) {
-    return axios.post("/api/users", userData);
+    return axios.post("/api/signup", userData);
+  },
+   // Saves a User to the database
+   loginUser: function(userData) {
+     console.log("inside loginUser API util")
+    return axios.post("/api/login", userData);
   },
   // Updates a User
   updateUser: function(id,userData) {

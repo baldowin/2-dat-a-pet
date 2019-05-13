@@ -19,11 +19,12 @@ module.exports = function (app) {
 
   //admin route - find all owners and list pets
   //updated for newschema
-//does not include a security check
+  //does not include a security check
   app.get("/api/admin/pets", function (req, res) {
     db.Owner.findAll({
-      include: [{model: db.Pet,
-      as: "Pet", include: [{model: db.Dog, attribute: ["petName"]},{model: db.Cat, attribute:["petName"]}]
+      include: [{
+        model: db.Pet,
+        as: "Pet", include: [{ model: db.Dog, attribute: ["petName"] }, { model: db.Cat, attribute: ["petName"] }]
       }]
     }).then(function (view) {
       res.json(view);
@@ -40,7 +41,7 @@ module.exports = function (app) {
     });
   });
 
-//admin route- find all pet data for single Owner
+  //admin route- find all pet data for single Owner
   //updated for newschema
   //does not include a security check
   app.get("/api/admin/pets/:email", function (req, res) {
@@ -159,88 +160,95 @@ module.exports = function (app) {
             break;
         }
       });
+    });
   });
-});
 
-// Delete a pet
-// updated for newschema
-// does not include security check
-app.delete("/api/pets/:id", function (req, res) {
-  db.Pet.destroy({ where: { petId: req.params.id } }).then(function (result) {
-    res.json(result);
+  // Delete a pet
+  // updated for newschema
+  // does not include security check
+  app.delete("/api/pets/:id", function (req, res) {
+    db.Pet.destroy({ where: { petId: req.params.id } }).then(function (result) {
+      res.json(result);
+    });
   });
-});
 
 
-// Updates a pet
-// updated for newschema
-//does not include a security check
-app.put("/api/pets/:id", function (req, res) {
+  // Updates a pet
+  // updated for newschema
+  //does not include a security check
+  app.put("/api/pets/:id", function (req, res) {
 
-  db.Pet.FindOne({
-    where: { id: req.params.id }
-  }).then(function (result) {
-    console.log(result);
-    if (result.pet.petType === "Dog") {
-      db.Dog.update(req.body, {
-        where: { PetPetId: req.params.id }
-      }).then(function (result) {
-        res.json(result);
-      });
+    db.Pet.FindOne({
+      where: { id: req.params.id }
+    }).then(function (result) {
+      console.log(result);
+      if (result.pet.petType === "Dog") {
+        db.Dog.update(req.body, {
+          where: { PetPetId: req.params.id }
+        }).then(function (result) {
+          res.json(result);
+        });
+      } else {
+        db.Cat.update(req.body, {
+          where: { PetPetId: req.params.id }
+        }).then(function (result) {
+          res.json(result);
+        });
+      }
+    })
+  });
+
+
+  ////START OF AUTH APIS//////////////
+  app.post("/api/login", passport.authenticate("local"), function (req, res) {
+    console.log("api/login was hit");
+    res.json("/dashboard");//this should be something else
+  });
+
+  app.get("/login", function (req, res) {
+    console.log("login route works");
+    if (req.user) {
+      res.redirect("/dashboard");
     } else {
-      db.Cat.update(req.body, {
-        where: { PetPetId: req.params.id }
-      }).then(function (result) {
-        res.json(result);
-      });
+      // res.render("login");
+      res.redirect("/signup");
     }
-  })
-});
+  });
 
+  // Auth // Signup - new user creation - 
+  app.post("/api/signup", function (req, res) {
+    console.log("api/signup was hit");
+    console.log(req);
+    db.User.create({
+      email: req.body.email,
+      password: req.body.password,
+      owner: true
+    }).then(function(){
+      db.Owner.create({
+        UserEmail: req.body.email,
+        ownerName: req.body.ownerName,
+        phone: req.body.phone,
+      }).then(function () {
+        // res.json("success");
+        res.redirect(307, "/api/login");
+      }).catch(function (err) {
+        console.log(err);
+        res.json(err);
+      });
+      
 
-////START OF AUTH APIS//////////////
-app.post("/api/login", passport.authenticate("local"), function (req, res) {
-  res.json("/dashboard");//this should be something else
-});
-
-app.get("/login", function (req, res) {
-  if (req.user) {
-    res.redirect("/dashboard");
-  } else {
-    // res.render("login");
-    res.redirect("/signup");
-  }
-});
-
-// Auth // Signup - new user creation - 
-app.post("/api/signup", function (req, res) {
-  db.User.create({
-    email: req.body.email,
-    password: req.body.password,
-    owner: true
-  }).then(function () {
-    db.Owner.create({
-      ownerEmail: req.body.email,
-      ownerName: req.body.name,
-      phone: req.body.phone,
-      //authorizedAgents: req.body.agents Future functionality
-    }).then(function () {
-      // res.json("success");
-      res.redirect(307, "/api/login");
     }).catch(function (err) {
-      console.log(err);
       res.json(err);
     });
-  }).catch(function (err) {
-    res.json(err);
   });
-});
 
-// Auth // Logout
-app.get("/logout", function (req, res) {
-  req.logout();
-  res.redirect("/");
-});
+  // Auth // Logout
+  app.get('/logout', function (req, res){
+    console.log('logout was hit');
+    req.session.destroy(function (err) {
+      res.redirect('/');
+    });
+  });
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
