@@ -43,7 +43,7 @@
     ]
   },
   "engines": {
-    "node": "10.15."
+    "node": "10.15.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.0"
