@@ -34,7 +34,6 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      "not dead",
       "not op_mini all"
     ],
     "development": [
@@ -44,7 +43,7 @@
     ]
   },
   "engines": {
-    "node": "10.15.1"
+    "node": "10.15."
   },
   "devDependencies": {
     "concurrently": "^4.1.0"
