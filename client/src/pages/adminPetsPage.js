@@ -6,8 +6,9 @@ import Footer from './components/footer'
 import './dashboard.css'
 import API from '../utils/API'
 
-class Dashboard extends Component {
+class adminPetsPage extends Component {
     state = {
+        owners: "",
         pets: [],
         associatedpets: []
     };
@@ -16,11 +17,13 @@ class Dashboard extends Component {
     }
     loadPets = () => {
         // console.log(req.body);
-        API.getUserPets()
-            .then(res =>this.setState({ pets: res.data.Pet }),
+        API.adminPets("unique@email.com")
+            .then(res => {
+                console.log(res);
+                this.setState({ pets: res.data.Pet, owners:res.data.ownerName })
             // console.log("api call"),
             //  console.log(res.data.Pet),
-            
+            }
             )
             .catch(err => console.log(err));
         // API.getUserAssociatedPets('TEST@email.com')
@@ -35,12 +38,13 @@ class Dashboard extends Component {
                 <div className="row">
                     <div className="col s12">
                         {console.log(this.state.pets)}
-                        {this.state.pets.length ? (
-                            <h3>Your Pets</h3>
-                            ,
-                            this.state.pets.map(pet => (
+                        {this.state.pets.length ? (<div>
+                            <h3>Pets for {this.state.owners}</h3>
+
+                            {this.state.pets.map(pet => (
                                 <Card pet={pet} />
-                            ))
+                            ))}
+                            </div>
                         ) : (
                                 <h3>No Results to Display</h3>
                             )}
@@ -59,4 +63,4 @@ class Dashboard extends Component {
         )
     }
 }
-export default Dashboard;
+export default adminPetsPage;

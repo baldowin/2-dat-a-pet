@@ -5,6 +5,7 @@ import Home from './pages/homepage'
 import Dash from './pages/dashboard'
 import AdminDash from './pages/admindashboard'
 import Signup from './pages/signuppage'
+import adminPetsPage from "./pages/adminPetsPage";
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
             <Route exact path="/dashboard" component={Dash} />
             <Route exact path="/admin" component={AdminDash} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/admin/OwnerSearch" component={adminPetsPage}/>
             <Route component={Home} />
           </Switch>
         </div>
