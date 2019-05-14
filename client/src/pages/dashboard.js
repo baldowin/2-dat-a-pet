@@ -40,18 +40,20 @@ class Dashboard extends Component {
         return (
             <div>
                 < NavBar />
-                <div className="row">
-                    <div className="col s12">
-                        {console.log(this.state.pets)}
-                        {this.state.pets.length ? (
-                            <h3>Your Pets</h3>
-                            ,
-                            this.state.pets.map(pet => (
-                                <Card pet={pet} />
-                            ))
-                        ) : (
-                                <h3>No Results to Display</h3>
-                            )}
+                {this.state.pets.length ? (
+                    <div>
+                        <h3>Your Pets</h3>
+                        <div className="row">
+                            <div className="col s12" id="my-pet-wrapper">
+                                {this.state.pets.map(pet => (
+                                    <Card pet={pet} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <h3>No Results to Display</h3>
+                )}
 
 
 
@@ -71,6 +73,7 @@ class Dashboard extends Component {
                             )}
                     </div>
                 </div>
+
                 < Footer />
             </div>
         )

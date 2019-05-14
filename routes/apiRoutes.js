@@ -115,7 +115,7 @@ module.exports = function (app) {
   // Get user info
   app.get("/api/users/:email",isAuthenticated,function (req, res) {
     db.Owner.findOne({
-      where: { id: req.params.email }
+      where: { UserEmail: req.user.email }
     }).then(function (view) {
       res.json(view);
     });
