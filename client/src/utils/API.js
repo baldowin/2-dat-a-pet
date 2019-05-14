@@ -5,20 +5,21 @@ import axios from "axios";
 export default {
   //Gets all associatedPets
   adminAssociatedPets: function() {
-    return axios.get("/api/admin/associatedPets/:email")
+    return axios.get("/api/associatedPets/:email")
   },
   //Gets all pets for single owner
   //this includes owner data for that single owner
-  adminPets: function(){
-    return axios.get("api/admin/Pets/:email")
+  adminPets: function(email){
+    console.log("inside adminPets api.js "+email)
+    return axios.get("/admin/api/pets/"+email)
   },
   // Gets all pets under all Owners
   adminAllPets: function() {
-    return axios.get("/api/admin/pets");
+    return axios.get("/api/pets");
   },
   //Gets all Owners
   adminAllOwners: function() {
-    return axios.get("/api/admin/owner");
+    return axios.get("/api/owner");
   },
   getUserAssociatedPets: function(email){
     return axios.get("/api/user/associatedPets/"+email);
