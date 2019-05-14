@@ -53,7 +53,7 @@ class Navbar extends Component {
                         <a href="#!" className="modal-close waves-effect waves-green btn-flat">Confirm</a>
                     </div>
                 </div>
-                <h4>Dat-A-Pet</h4>
+                <a href="/"><h4> Dat-A-Pet</h4></a>
             </div>
 
         );
