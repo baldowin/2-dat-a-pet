@@ -139,24 +139,25 @@ module.exports = function (app) {
 
     db.Owner.findOne({
       where: {
-        ownerEmail: req.user.email
+        UserEmail: req.user.email
       }
     }).then(function (view) {
-      req.body.ownerOwnerId = view.dataValues.ownerId;
+      req.body.PetOwnerId = view.dataValues.ownerId;
+      req.body.OwnerOwnerId = view.dataValues.ownerId;
       //view.dataValues.ownerId
-      db.pet.create(req.body).then(function (result) {
-        switch (result.dataValues.petType) {
+      db.Pet.create(req.body).then(function (result) {
+        req.body.PetPetId = result.dataValues.petId;
+        switch (req.body.petType) {
           case "Dog":
-            db.Dog.create({
-              PetPetId: result.dataValues.petId
-            }).then(function (res) {
+            db.Dog.create(
+              req.body
+            ).then(function () {
               res.json("/dashboard");
             });
             break;
           case "Cat":
-            db.Cat.create({
-              PetPetId: result.dataValues.petId
-            }).then(function (res) {
+            db.Cat.create(req.body
+            ).then(function () {
               res.json("/dashboard");
             });
             break;
