@@ -11,7 +11,6 @@ neuteredValue = "true"
        neuteredValue = "false"
    }
     return (
-        
             <div className="card">
                 <div className="card-image waves-effect waves-block waves-light">
                     <img className="activator" src="http://4.bp.blogspot.com/_VmZpep1KUeg/TT-ZYxvRGqI/AAAAAAAAAIA/lInvcvqOkBY/s1600/cute-puppy-dog-wallpapers.jpg" />
