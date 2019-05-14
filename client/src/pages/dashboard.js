@@ -5,6 +5,7 @@ import Card from './components/card/card';
 import Footer from './components/footer'
 import './dashboard.css'
 import API from '../utils/API'
+import {Route,Redirect} from 'react-router';
 
 class Dashboard extends Component {
    state = {
@@ -37,6 +38,9 @@ class Dashboard extends Component {
     };
 
     render() {
+        if (this.state.pets===undefined){
+            return <Redirect to="/"/>
+        }
         return (
             <div>
                 < NavBar />
@@ -60,7 +64,6 @@ class Dashboard extends Component {
                         {/* < Card pets={this.state.pets} /> */}
                     </div>
                     <div className="col s12">
-
                         {console.log(this.state.associatedpets)}
                         {this.state.associatedpets.length ? (
                             <h3>Friends Pet</h3>

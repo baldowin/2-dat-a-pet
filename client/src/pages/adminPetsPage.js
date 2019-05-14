@@ -5,6 +5,7 @@ import Card from './components/card/card';
 import Footer from './components/footer'
 import './dashboard.css'
 import API from '../utils/API'
+import {Route,Redirect} from 'react-router';
 
 class adminPetsPage extends Component {
     state = {
@@ -32,6 +33,9 @@ class adminPetsPage extends Component {
     };
 
     render() {
+        if (this.state.pets===undefined){
+            return <Redirect to="/"/>
+        }
         return (
             <div>
                 < NavBar />
