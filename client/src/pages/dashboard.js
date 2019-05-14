@@ -5,6 +5,7 @@ import Card from './components/card/card';
 import Footer from './components/footer'
 import './dashboard.css'
 import API from '../utils/API'
+import {route,redirect} from 'react-router';
 
 class Dashboard extends Component {
     state = {
@@ -22,7 +23,7 @@ class Dashboard extends Component {
             //  console.log(res.data.Pet),
             
             )
-            .catch(err => console.log(err));
+            .catch(err => <redirect to = "/"/>);
         // API.getUserAssociatedPets('TEST@email.com')
         //     .then(res => this.setState({ pets: res.data }))
         //     .catch(err => console.log(err));
