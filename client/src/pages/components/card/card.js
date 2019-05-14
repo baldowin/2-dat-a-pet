@@ -3,7 +3,14 @@ import './card.css'
 
 
 function Card(pet) {
+    let neuteredValue;
+    if(pet.pet.Dog.neuetered){
+neuteredValue = true
+    }else{
+        neuteredValue = false
+    }
     return (
+        
         <div>
             <div className="card">
                 <div className="card-image waves-effect waves-block waves-light">
@@ -22,7 +29,8 @@ function Card(pet) {
                         <li className="collection-item">birth Year: {pet.pet.Dog.birthYear}</li>
                         <li className="collection-item">Gender: {pet.pet.Dog.gender}</li>
                         <li className="collection-item">Breed: {pet.pet.Dog.petSubtype}</li>
-                        <li className="collection-item">Neutered: {pet.pet.Dog.neutered}</li>
+                        <li className="collection-item">Neutered: {neuteredValue}
+                        }}</li>
                     </ul>
                     
                     {console.log(pet.pet.Dog.birthMonth)}
