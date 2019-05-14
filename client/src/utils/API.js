@@ -30,12 +30,12 @@ export default {
     return axios.get("/api/users/pets/");
   },
   // Gets info of a user
-  getUser: function(id) {
-    return axios.get("/api/users/" + id);
+  getUser: function(email) {
+    return axios.get("/api/users/" + email);
   },
   // Deletes the User with the given id
-  deleteUser: function(id) {
-    return axios.delete("/api/users/" + id);
+  deleteUser: function(email) {
+    return axios.delete("/api/users/" + email);
   },
   // Saves a User to the database
   addUser: function(userData) {

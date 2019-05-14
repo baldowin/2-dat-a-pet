@@ -2,7 +2,7 @@ var db = require("../models");
 var passport = require("../config/passport");
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 var isOwner = require("../config/middleware/isOwner");
-var isAdmin = require("../config/middleware/isOwner");
+var isAdmin = require("../config/middleware/isAdmin");
 var path = require("path");
 var Sequelize = require("sequelize");
 var Op = Sequelize.Op;
@@ -41,7 +41,7 @@ module.exports = function (app) {
 
   //admin route- find all pet data for single Owner
   //updated for newschema
-  app.get("/admin/api/pets/:email", function (req, res) {
+  app.get("/admin/api/pets/:email", isAdmin, function (req, res) {
     console.log("inside admin for single owner apiRoutes");
     console.log("email param: "+req.params.email);
     db.Owner.findOne({

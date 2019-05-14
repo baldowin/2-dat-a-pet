@@ -1,3 +1,5 @@
+var db = require("../../models");
+
 module.exports = function (req, res, next) {
   console.log("isAdmin hit")
   // If the user is logged in, continue with the request to the restricted route
@@ -20,7 +22,7 @@ module.exports = function (req, res, next) {
   } else {
     console.log('should redirect to login from admin');
     // If the user isn't logged in, redirect them to the login page
-    return res.redirect("/login");
+    return res.redirect("/");
 
   }
 
