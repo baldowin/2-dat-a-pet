@@ -5,7 +5,7 @@ import Card from './components/card/card';
 import Footer from './components/footer'
 import './dashboard.css'
 import API from '../utils/API'
-import {route,redirect} from 'react-router';
+import {route,redirect} from 'react-router'
 
 class Dashboard extends Component {
     state = {
@@ -23,19 +23,22 @@ class Dashboard extends Component {
             //  console.log(res.data.Pet),
             
             )
-            .catch(err => <redirect to = "/"/>);
+            .catch(err => console.log(err));
         // API.getUserAssociatedPets('TEST@email.com')
         //     .then(res => this.setState({ pets: res.data }))
         //     .catch(err => console.log(err));
     };
 
     render() {
+        if (this.state.pets===undefined){
+            return <redirect to="/"/>
+        }
         return (
             <div>
                 < NavBar />
                 <div className="row">
                     <div className="col s12">
-                        {console.log(this.state.pets)}
+                        
                         {this.state.pets.length ? (
                             <h3>Your Pets</h3>
                             ,
