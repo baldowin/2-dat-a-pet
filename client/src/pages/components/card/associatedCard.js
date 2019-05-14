@@ -14,6 +14,7 @@ function Associatedpets(pet) {
                     {console.log(pet.pet.Dog)}
                     <span className="card-title activator grey-text text-darken-4">{pet.pet.Dog.petName}<a class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">Info</i></a></span>
                     <a class="waves-effect waves-light btn">Update</a>
+                    <a class="waves-effect waves-light btn">Delete</a>
                 </div>
                 <div className="card-reveal">
                 <span className="card-title grey-text text-darken-4">Pet Info<i class="material-icons right">close</i></span>
