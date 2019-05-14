@@ -45,7 +45,7 @@ handleFormSubmit = event => {
                 <input value={this.state.associatesEmail} onChange={this.handleInputChange} id="associatesEmail" type="text" class="validate"/>
                 <label for="associatesEmail">Additional Authorized User's Email</label>
                 <span class="helper-text" data-error="Please enter a valid email address"></span>
-                <button onClick={this.handleFormSubmit}>Grant Access</button>
+                <button className="waves-light btn" onClick={this.handleFormSubmit}>Grant Access</button>
               </div>
 
             </div>
