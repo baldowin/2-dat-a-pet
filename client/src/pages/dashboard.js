@@ -5,13 +5,13 @@ import Card from './components/card/card';
 import Footer from './components/footer'
 import './dashboard.css'
 import API from '../utils/API'
-import {Route,Redirect} from 'react-router';
+import { Route, Redirect } from 'react-router';
 
 class Dashboard extends Component {
-   state = {
-            pets: [],
-            associatedpets: []
-        };
+    state = {
+        pets: [],
+        associatedpets: []
+    };
 
     componentDidMount() {
         this.loadPets();
@@ -28,7 +28,7 @@ class Dashboard extends Component {
                     .then(res => {
                         console.log(res.data);
                         this.setState({ pets: petsState, associatedpets: res.data.Pets });
-                        
+
                     }
                     )
                     .catch(err => console.log(err));
@@ -38,8 +38,8 @@ class Dashboard extends Component {
     };
 
     render() {
-        if (this.state.pets===undefined){
-            return <Redirect to="/"/>
+        if (this.state.pets === undefined) {
+            return <Redirect to="/" />
         }
         return (
             <div>
@@ -57,29 +57,40 @@ class Dashboard extends Component {
                         </div>
                     </div>
                 ) : (
-                    <h3>No Results to Display</h3>
+                        <h3>No Results to Display</h3>
+                    )}
+
+                {this.state.associatedpets.length ? (
+                    <div>
+                        <h3>Friends Pet</h3>
+                        <hr></hr>
+                        <div className="row">
+                            <div className="col s12" id="my-pet-wrapper">
+                                {this.state.associatedpets.map(pet => (
+                                    <Card pet={pet} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                        <h3>No Results to Display</h3>
+                    )}
                 )}
-
-
-
-                        {/* < Card pets={this.state.pets} /> */}
-                    </div>
-                    <div className="col s12">
-                        {console.log(this.state.associatedpets)}
-                        {this.state.associatedpets.length ? (
-                            <h3>Friends Pet</h3>
-                            ,
-                            this.state.associatedpets.map(pet => (
-                                <Card pet={pet} />
-                            ))
-                        ) : (
-                                <h3>No Results to Display</h3>
-                            )}
-                    </div>
-                </div>
-
-                < Footer />
             </div>
+            /*                     
+                                    {console.log(this.state.associatedpets)}
+                                    {this.state.associatedpets.length ? (
+                                        
+                                        ,
+                                        this.state.associatedpets.map(pet => (
+                                            
+                                        )) */
+
+
+
+
+            < Footer />
+            </div >
         )
     }
 }
