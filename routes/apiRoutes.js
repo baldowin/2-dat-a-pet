@@ -19,8 +19,7 @@ module.exports = function (app) {
 
   //admin route - find all owners and list pets
   //updated for newschema
-  //does not include a security check
-  app.get("/api/admin/pets", function (req, res) {
+  app.get("/admin/api/pets", isAdmin, function (req, res) {
     db.Owner.findAll({
       include: [{
         model: db.Pet,
@@ -33,8 +32,7 @@ module.exports = function (app) {
 
   //admin route- find all owners ONLY
   //updated for newschema
-  //does not include a security check
-  app.get("/api/admin/owners", function (req, res) {
+  app.get("/admin/api/owners", isAdmin, function (req, res) {
     db.Owner.findAll({
     }).then(function (view) {
       res.json(view);
@@ -43,8 +41,9 @@ module.exports = function (app) {
 
   //admin route- find all pet data for single Owner
   //updated for newschema
-  //does not include a security check
-  app.get("/api/admin/pets/:email", function (req, res) {
+  app.get("/admin/api/pets/:email", function (req, res) {
+    console.log("inside admin for single owner apiRoutes");
+    console.log("email param: "+req.params.email);
     db.Owner.findOne({
       where: { UserEmail: req.params.email },
       include: [{
@@ -59,8 +58,7 @@ module.exports = function (app) {
 
   //admin route- find all Associatedpet data for single Owner
   //updated for newschema
-  //does not include a security check
-  app.get("/api/admin/associatedPets/:email", function (req, res) {
+  app.get("admin//api/associatedPets/:email", isAdmin, function (req, res) {
     db.Owner.findOne({
       where: { UserEmail: req.params.email },
       include: [{
@@ -78,8 +76,7 @@ module.exports = function (app) {
 
   //get all associated pets for a user
   //updated for newschema
-  //does not include a security check
-  app.get("/api/users/associatedPets/:email", function (req, res) {
+  app.get("/api/users/associatedPets/:email", isAuthenticated, function (req, res) {
     db.Owner.findOne({
       where: { UserEmail: req.params.email },
       include: [{
@@ -95,10 +92,10 @@ module.exports = function (app) {
 
   // Get all pets of user
   //updated for newschema
-  //does not include a security check
 
   //////THIS NO LONGER WORKS FOR ADMIN- IT LOOKS ONLY FOR LOGIN USER////////////////
-  app.get("/api/users/pets", function (req, res) {
+  app.get("/api/users/pets", isAuthenticated, function (req, res) {
+    console.log("hit get pets for a user APIroute")
     db.Owner.findOne({
       where: { UserEmail: req.user.email },
       include: [{
@@ -108,13 +105,15 @@ module.exports = function (app) {
       }]
     }).then(function (view) {
       res.json(view);
+    }).catch(function(error){
+      console.log('inside catch error of APIroute')
+      res.json(error);
     });
   });
 
 
   // Get user info
-  //does not include a security checkS
-  app.get("/api/users/:email", function (req, res) {
+  app.get("/api/users/:email",isAuthenticated,function (req, res) {
     db.Owner.findOne({
       where: { id: req.params.email }
     }).then(function (view) {
@@ -124,8 +123,7 @@ module.exports = function (app) {
 
   // Get a single pet
   //updated for newschema
-  //does not include a security check
-  app.get("/api/pets/:id", function (req, res) {
+  app.get("/api/pets/:id",isAuthenticated, function (req, res) {
     db.Pet.findOne({
       where: { id: req.params.id },
       include: [{ model: db.Dog }, { model: db.Cat }]
@@ -135,28 +133,29 @@ module.exports = function (app) {
   });
 
   // Creates a Pet and puts it in the database
-  app.post("/api/pets", function (req, res) {
+  app.post("/api/pets",isAuthenticated, function (req, res) {
 
     db.Owner.findOne({
       where: {
-        ownerEmail: req.user.email
+        UserEmail: req.user.email
       }
     }).then(function (view) {
-      req.body.ownerOwnerId = view.dataValues.ownerId;
+      req.body.PetOwnerId = view.dataValues.ownerId;
+      req.body.OwnerOwnerId = view.dataValues.ownerId;
       //view.dataValues.ownerId
-      db.pet.create(req.body).then(function (result) {
-        switch (result.dataValues.petType) {
+      db.Pet.create(req.body).then(function (result) {
+        req.body.PetPetId = result.dataValues.petId;
+        switch (req.body.petType) {
           case "Dog":
-            db.Dog.create({
-              PetPetId: result.dataValues.petId
-            }).then(function (res) {
+            db.Dog.create(
+              req.body
+            ).then(function () {
               res.json("/dashboard");
             });
             break;
           case "Cat":
-            db.Cat.create({
-              PetPetId: result.dataValues.petId
-            }).then(function (res) {
+            db.Cat.create(req.body
+            ).then(function () {
               res.json("/dashboard");
             });
             break;
@@ -167,8 +166,7 @@ module.exports = function (app) {
 
   // Delete a pet
   // updated for newschema
-  // does not include security check
-  app.delete("/api/pets/:id", function (req, res) {
+  app.delete("/api/pets/:id",isAuthenticated, function (req, res) {
     db.Pet.destroy({ where: { petId: req.params.id } }).then(function (result) {
       res.json(result);
     });
@@ -177,7 +175,6 @@ module.exports = function (app) {
 
   // Updates a pet
   // updated for newschema
-  //does not include a security check
   app.put("/api/pets/:id", function (req, res) {
 
     db.Pet.FindOne({
@@ -245,7 +242,7 @@ module.exports = function (app) {
   });
 
   // Auth // Logout
-  app.get('/logout', function (req, res){
+  app.get('/logout', isAuthenticated, function (req, res){
     console.log('logout was hit');
     req.session.destroy(function (err) {
       res.redirect('/');
