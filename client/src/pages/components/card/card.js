@@ -2,9 +2,16 @@ import React from 'react';
 import './card.css'
 
 
+
 function Card(pet) {
+    let neuteredValue;
+   if(pet.pet.Dog.neuetered === true){
+neuteredValue = "true"
+   }else{
+       neuteredValue = "false"
+   }
     return (
-        <div>
+        
             <div className="card">
                 <div className="card-image waves-effect waves-block waves-light">
                     <img className="activator" src="http://4.bp.blogspot.com/_VmZpep1KUeg/TT-ZYxvRGqI/AAAAAAAAAIA/lInvcvqOkBY/s1600/cute-puppy-dog-wallpapers.jpg" />
@@ -22,13 +29,13 @@ function Card(pet) {
                         <li className="collection-item">birth Year: {pet.pet.Dog.birthYear}</li>
                         <li className="collection-item">Gender: {pet.pet.Dog.gender}</li>
                         <li className="collection-item">Breed: {pet.pet.Dog.petSubtype}</li>
-                        <li className="collection-item">Neutered: {pet.pet.Dog.neutered}</li>
+                        <li className="collection-item">Neutered: {neuteredValue}</li>
                     </ul>
                     
                     {console.log(pet.pet.Dog.birthMonth)}
                 </div>
             </div>
-        </div>
+        
     )
 }
 
