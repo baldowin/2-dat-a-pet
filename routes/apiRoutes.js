@@ -20,7 +20,7 @@ module.exports = function (app) {
   //admin route - find all owners and list pets
   //updated for newschema
   //does not include a security check
-  app.get("/api/admin/pets", function (req, res) {
+  app.get("/api/admin/pets", isAdmin, function (req, res) {
     db.Owner.findAll({
       include: [{
         model: db.Pet,
@@ -34,7 +34,7 @@ module.exports = function (app) {
   //admin route- find all owners ONLY
   //updated for newschema
   //does not include a security check
-  app.get("/api/admin/owners", function (req, res) {
+  app.get("/api/admin/owners", isAdmin, function (req, res) {
     db.Owner.findAll({
     }).then(function (view) {
       res.json(view);
@@ -44,7 +44,7 @@ module.exports = function (app) {
   //admin route- find all pet data for single Owner
   //updated for newschema
   //does not include a security check
-  app.get("/api/admin/pets/:email", function (req, res) {
+  app.get("/api/admin/pets/:email", isAdmin, function (req, res) {
     db.Owner.findOne({
       where: { UserEmail: req.params.email },
       include: [{
@@ -60,7 +60,7 @@ module.exports = function (app) {
   //admin route- find all Associatedpet data for single Owner
   //updated for newschema
   //does not include a security check
-  app.get("/api/admin/associatedPets/:email", function (req, res) {
+  app.get("/api/admin/associatedPets/:email", isAdmin, function (req, res) {
     db.Owner.findOne({
       where: { UserEmail: req.params.email },
       include: [{
@@ -79,7 +79,7 @@ module.exports = function (app) {
   //get all associated pets for a user
   //updated for newschema
   //does not include a security check
-  app.get("/api/users/associatedPets/:email", function (req, res) {
+  app.get("/api/users/associatedPets/:email", isAuthenticated, function (req, res) {
     db.Owner.findOne({
       where: { UserEmail: req.params.email },
       include: [{
@@ -98,7 +98,8 @@ module.exports = function (app) {
   //does not include a security check
 
   //////THIS NO LONGER WORKS FOR ADMIN- IT LOOKS ONLY FOR LOGIN USER////////////////
-  app.get("/api/users/pets", function (req, res) {
+  app.get("/api/users/pets", isAuthenticated, function (req, res) {
+    console.log("hit get pets for a user APIroute")
     db.Owner.findOne({
       where: { UserEmail: req.user.email },
       include: [{
@@ -108,13 +109,16 @@ module.exports = function (app) {
       }]
     }).then(function (view) {
       res.json(view);
+    }).catch(function(error){
+      console.log('inside catch error of APIroute')
+      res.json(error);
     });
   });
 
 
   // Get user info
   //does not include a security checkS
-  app.get("/api/users/:email", function (req, res) {
+  app.get("/api/users/:email",isAuthenticated,function (req, res) {
     db.Owner.findOne({
       where: { id: req.params.email }
     }).then(function (view) {
@@ -125,7 +129,7 @@ module.exports = function (app) {
   // Get a single pet
   //updated for newschema
   //does not include a security check
-  app.get("/api/pets/:id", function (req, res) {
+  app.get("/api/pets/:id",isAuthenticated, function (req, res) {
     db.Pet.findOne({
       where: { id: req.params.id },
       include: [{ model: db.Dog }, { model: db.Cat }]
@@ -135,7 +139,7 @@ module.exports = function (app) {
   });
 
   // Creates a Pet and puts it in the database
-  app.post("/api/pets", function (req, res) {
+  app.post("/api/pets",isAuthenticated, function (req, res) {
 
     db.Owner.findOne({
       where: {
@@ -169,7 +173,7 @@ module.exports = function (app) {
   // Delete a pet
   // updated for newschema
   // does not include security check
-  app.delete("/api/pets/:id", function (req, res) {
+  app.delete("/api/pets/:id",isAuthenticated, function (req, res) {
     db.Pet.destroy({ where: { petId: req.params.id } }).then(function (result) {
       res.json(result);
     });
@@ -246,7 +250,7 @@ module.exports = function (app) {
   });
 
   // Auth // Logout
-  app.get('/logout', function (req, res){
+  app.get('/logout', isAuthenticated, function (req, res){
     console.log('logout was hit');
     req.session.destroy(function (err) {
       res.redirect('/');

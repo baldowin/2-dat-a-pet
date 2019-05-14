@@ -25,6 +25,7 @@ export default {
   },
   // Gets all the pets of a user
   getUserPets: function() {
+    console.log("getUserPets API.js")
     return axios.get("/api/users/pets/");
   },
   // Gets info of a user
