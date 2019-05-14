@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js'
 import Addapet from '../forms/addapet/addapet';
 import API from '../../../utils/API'
+import Addauthorizeduser from '../forms/addauthorizeduser/addauthorizeduser';
 
 
 
@@ -14,17 +15,15 @@ class Navbar extends Component {
         M.AutoInit();
     }
     userinfo = () => {
-        // console.log(req.body);
         API.getUser()
-            .then(res =>{this.setState({ user: res.data});
-            console.log("api call");
-             console.log(res.data);
-    }
+            .then(res => {
+                this.setState({ user: res.data });
+            }
             )
             .catch(err => console.log(err));
     };
     render() {
-        
+
         return (
             <div>
                 <nav></nav>
@@ -39,7 +38,11 @@ class Navbar extends Component {
                         <a><span className="black-text email">{this.state.user.UserEmail}</span></a>
                         <a><span className="black-text email">{this.state.user.phone}</span></a>
                     </div></li>
+                    <li>
+                    <Addauthorizeduser />    
+                    </li>
                 </ul>
+                
                 <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons waves-effect waves-light btn">Nav</i></a>
 
                 <a className="waves-effect waves-light btn modal-trigger" href="#modal1">Add-A-Pet</a>
@@ -47,17 +50,13 @@ class Navbar extends Component {
                 <div id="modal1" className="modal">
                     <div className="modal-content">
                         <h4>Pet Creator</h4>
-                                < Addapet/>
+                        < Addapet />
+                        {/* The submit button for the form cannot live here, I had to put it within the Class which has the data as this.state */}
                     </div>
-                    <div className="modal-footer">
-                        <button class="modal-close btn waves-effect waves-light" type="submit" name="action">Add-A-Pet
-                            <i className="material-icons right">send</i>
-                        </button>
-                    </div>
+
                 </div>
                 <a href="/"><h4> Dat-A-Pet</h4></a>
             </div>
-
         );
     };
 };
