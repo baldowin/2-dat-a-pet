@@ -5,7 +5,7 @@ import Card from './components/card/card';
 import Footer from './components/footer'
 import './dashboard.css'
 import API from '../utils/API'
-import {route,redirect} from 'react-router'
+import {Route,Redirect} from 'react-router'
 
 class Dashboard extends Component {
     state = {
@@ -31,7 +31,7 @@ class Dashboard extends Component {
 
     render() {
         if (this.state.pets===undefined){
-            return <redirect to="/"/>
+            return <Redirect to="/"/>
         }
         return (
             <div>
