@@ -1,3 +1,10 @@
 .card {
     width: 20%;
+    margin-right: 10px;
+}
+
+@media only screen and (max-device-width: 450px) {
+    .card{
+        width:100%
+    }
 }
