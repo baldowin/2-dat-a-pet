@@ -40,7 +40,10 @@ class Navbar extends Component {
                                 < Addapet/>
                     </div>
                     <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Confirm</a>
+                        {/* <a href="#!" class="modal-close waves-effect waves-green btn-flat">Confirm</a> */}
+                        <button class="modal-close btn waves-effect waves-light" type="submit" name="action">Create Pet
+                            <i class="material-icons right">send</i>
+                        </button>
                     </div>
                 </div>
                 <h4>Dat-A-Pet</h4>

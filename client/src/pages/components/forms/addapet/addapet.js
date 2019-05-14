@@ -34,8 +34,19 @@ class Addapet extends Component {
                     </select>
                     <label>Pet Gender</label>
                 </div>
+
 {/*  */}
-                {/* Neutered uses select*/}
+                {/* Sterilization uses select*/}
+                <div class="input-field col s6">
+                    <select>
+                    <option value="" disabled selected>Please select an option</option>
+                    <option value="1">My pet IS sterilized</option>
+                    <option value="2">My Pet is NOT sterilized</option>
+                    </select>
+                    <label>Sterilization</label>
+                </div>
+{/*  */}
+                {/* Neutered uses select
                 <div>
                     <label>Is your Pet Neutered?</label>
                     <p>
@@ -50,7 +61,7 @@ class Addapet extends Component {
                             <span>No</span>
                         </label>
                     </p>
-                </div>
+                </div> */}
 {/*  */}
             </div>
           </form>
