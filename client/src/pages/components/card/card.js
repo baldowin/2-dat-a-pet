@@ -5,7 +5,7 @@ import './card.css'
 
 function Card(pet) {
     let neuteredValue;
-   if(pet.pet.Dog.neuetered === true){
+   if(pet.pet.Dog.neutered === true){
 neuteredValue = "true"
    }else{
        neuteredValue = "false"

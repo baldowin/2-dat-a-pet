@@ -16,15 +16,16 @@ class Navbar extends Component {
     userinfo = () => {
         // console.log(req.body);
         API.getUser()
-            .then(res =>{this.setState({ user: res.data});
-            console.log("api call");
-             console.log(res.data);
-    }
+            .then(res => {
+                this.setState({ user: res.data });
+                console.log("api call");
+                console.log(res.data);
+            }
             )
             .catch(err => console.log(err));
     };
     render() {
-        
+
         return (
             <div>
                 <nav></nav>
@@ -47,17 +48,13 @@ class Navbar extends Component {
                 <div id="modal1" className="modal">
                     <div className="modal-content">
                         <h4>Pet Creator</h4>
-                                < Addapet/>
+                        < Addapet />
+                        {/* The submit button for the form cannot live here, I had to put it within the Class which has the data as this.state */}
                     </div>
-                    <div className="modal-footer">
-                        <button class="modal-close btn waves-effect waves-light" type="submit" name="action">Add-A-Pet
-                            <i className="material-icons right">send</i>
-                        </button>
-                    </div>
-                </div>
-                <h4>Dat-A-Pet</h4>
-            </div>
 
+                </div>
+            <h4>Dat-A-Pet</h4>    
+            </div>
         );
     };
 };
