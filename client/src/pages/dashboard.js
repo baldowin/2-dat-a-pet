@@ -8,25 +8,33 @@ import API from '../utils/API'
 import {Route,Redirect} from 'react-router';
 
 class Dashboard extends Component {
-    state = {
-        pets: [],
-        associatedpets: []
-    };
+   state = {
+            pets: [],
+            associatedpets: []
+        };
+
     componentDidMount() {
         this.loadPets();
     }
     loadPets = () => {
         // console.log(req.body);
         API.getUserPets()
-            .then(res =>this.setState({ pets: res.data.Pet }),
-            // console.log("api call"),
-            //  console.log(res.data.Pet),
-            
-            )
+            .then(res => {
+                console.log(res.data)
+                let petsState = res.data.Pet;
+                // console.log("api call"),
+                //  console.log(res.data.Pet),
+                API.getUserAssociatedPets()
+                    .then(res => {
+                        console.log(res.data);
+                        this.setState({ pets: petsState, associatedpets: res.data.Pets });
+                        
+                    }
+                    )
+                    .catch(err => console.log(err));
+            })
             .catch(err => console.log(err));
-        // API.getUserAssociatedPets('TEST@email.com')
-        //     .then(res => this.setState({ pets: res.data }))
-        //     .catch(err => console.log(err));
+
     };
 
     render() {
@@ -36,28 +44,39 @@ class Dashboard extends Component {
         return (
             <div>
                 < NavBar />
-                <div className="row">
-                    <div className="col s12">
-                        
-                        {this.state.pets.length ? (
-                            <h3>Your Pets</h3>
-                            ,
-                            this.state.pets.map(pet => (
-                                <Card pet={pet} />
-                            ))
-                        ) : (
-                                <h3>No Results to Display</h3>
-                            )}
+                {this.state.pets.length ? (
+                    <div>
+                        <h3>Your Pets</h3>
+                        <div className="row">
+                            <div className="col s12" id="my-pet-wrapper">
+                                {this.state.pets.map(pet => (
+                                    <Card pet={pet} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <h3>No Results to Display</h3>
+                )}
 
 
 
                         {/* < Card pets={this.state.pets} /> */}
                     </div>
-                    {/* <div className="col s12">
-                        <h3>Friends Pet</h3>
-                        < Card pets={this.state.associatedPets} />
-                    </div> */}
+                    <div className="col s12">
+                        {console.log(this.state.associatedpets)}
+                        {this.state.associatedpets.length ? (
+                            <h3>Friends Pet</h3>
+                            ,
+                            this.state.associatedpets.map(pet => (
+                                <Card pet={pet} />
+                            ))
+                        ) : (
+                                <h3>No Results to Display</h3>
+                            )}
+                    </div>
                 </div>
+
                 < Footer />
             </div>
         )

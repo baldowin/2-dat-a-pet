@@ -76,9 +76,9 @@ module.exports = function (app) {
 
   //get all associated pets for a user
   //updated for newschema
-  app.get("/api/users/associatedPets/:email", isAuthenticated, function (req, res) {
+  app.get("/api/users/associatedPets/", isAuthenticated, function (req, res) {
     db.Owner.findOne({
-      where: { UserEmail: req.params.email },
+      where: { UserEmail: req.user.email },
       include: [{
         model: db.Pet,
         through: Agents,
@@ -115,7 +115,7 @@ module.exports = function (app) {
   // Get user info
   app.get("/api/users/:email",isAuthenticated,function (req, res) {
     db.Owner.findOne({
-      where: { id: req.params.email }
+      where: { UserEmail: req.user.email }
     }).then(function (view) {
       res.json(view);
     });

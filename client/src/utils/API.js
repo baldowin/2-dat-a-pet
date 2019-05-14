@@ -21,8 +21,8 @@ export default {
   adminAllOwners: function() {
     return axios.get("/api/owner");
   },
-  getUserAssociatedPets: function(email){
-    return axios.get("/api/user/associatedPets/"+email);
+  getUserAssociatedPets: function(){
+    return axios.get("/api/users/associatedPets/");
   },
   // Gets all the pets of a user
   getUserPets: function() {
