@@ -9,10 +9,6 @@ var Op = Sequelize.Op;
 
 
 
-////////////////////THIS FILE HAS ISAUTHENTICATED AND ISOWNER REMOVED/////////////////////
-
-
-
 
 module.exports = function (app) {
   ///////////////////////ADMIN ADMIN ADMIN ADMIN ADMIN//////////////////////////////
@@ -43,7 +39,7 @@ module.exports = function (app) {
   //updated for newschema
   app.get("/admin/api/pets/:email", isAdmin, function (req, res) {
     console.log("inside admin for single owner apiRoutes");
-    console.log("email param: "+req.params.email);
+    console.log("email param: " + req.params.email);
     db.Owner.findOne({
       where: { UserEmail: req.params.email },
       include: [{
@@ -58,7 +54,7 @@ module.exports = function (app) {
 
   //admin route- find all Associatedpet data for single Owner
   //updated for newschema
-  app.get("admin//api/associatedPets/:email", isAdmin, function (req, res) {
+  app.get("admin/api/associatedPets/:email", isAdmin, function (req, res) {
     db.Owner.findOne({
       where: { UserEmail: req.params.email },
       include: [{
@@ -105,7 +101,7 @@ module.exports = function (app) {
       }]
     }).then(function (view) {
       res.json(view);
-    }).catch(function(error){
+    }).catch(function (error) {
       console.log('inside catch error of APIroute')
       res.json(error);
     });
@@ -113,7 +109,7 @@ module.exports = function (app) {
 
 
   // Get user info
-  app.get("/api/users/:email",isAuthenticated,function (req, res) {
+  app.get("/api/users/:email", isAuthenticated, function (req, res) {
     db.Owner.findOne({
       where: { UserEmail: req.user.email }
     }).then(function (view) {
@@ -123,7 +119,7 @@ module.exports = function (app) {
 
   // Get a single pet
   //updated for newschema
-  app.get("/api/pets/:id",isAuthenticated, function (req, res) {
+  app.get("/api/pets/:id", isAuthenticated, function (req, res) {
     db.Pet.findOne({
       where: { id: req.params.id },
       include: [{ model: db.Dog }, { model: db.Cat }]
@@ -132,8 +128,41 @@ module.exports = function (app) {
     });
   });
 
+  app.post("/api/createAssociation", isAuthenticated, function (req, res) {
+      
+      db.Owner.findOne({
+      where: {
+        UserEmail: req.body.associatesEmail
+      }
+    }).then(function (Owner) {
+      console.log("Owner instance from createAssociation")
+      console.log(Owner.dataValues.ownerId);
+      let associatedId= Owner.dataValues.ownerId;
+
+      db.Owner.findOne({
+        where: { UserEmail: req.user.email }
+      }).then(function (view) {
+        db.Pet.findAll({
+          where: { OwnerOwnerId: view.dataValues.ownerId }
+        }).then(function (view) {
+          console.log("view of pet.findAll");
+          console.log(view);
+          view.forEach(function (pet) {
+            pet.addOwner(ownerOwnerId= associatedId);
+            res.json("/dashboard");
+          })
+        }).catch(function (error) {
+          console.log("error of createAssociation");
+          console.log(error);
+        })
+      })
+
+
+    })
+  })
+
   // Creates a Pet and puts it in the database
-  app.post("/api/pets",isAuthenticated, function (req, res) {
+  app.post("/api/pets", isAuthenticated, function (req, res) {
 
     db.Owner.findOne({
       where: {
@@ -166,7 +195,7 @@ module.exports = function (app) {
 
   // Delete a pet
   // updated for newschema
-  app.delete("/api/pets/:id",isAuthenticated, function (req, res) {
+  app.delete("/api/pets/:id", isAuthenticated, function (req, res) {
     db.Pet.destroy({ where: { petId: req.params.id } }).then(function (result) {
       res.json(result);
     });
@@ -222,7 +251,7 @@ module.exports = function (app) {
       email: req.body.email,
       password: req.body.password,
       owner: true
-    }).then(function(){
+    }).then(function () {
       db.Owner.create({
         UserEmail: req.body.email,
         ownerName: req.body.ownerName,
@@ -234,7 +263,7 @@ module.exports = function (app) {
         console.log(err);
         res.json(err);
       });
-      
+
 
     }).catch(function (err) {
       res.json(err);
@@ -242,14 +271,14 @@ module.exports = function (app) {
   });
 
   // Auth // Logout
-  app.get('/logout', isAuthenticated, function (req, res){
+  app.get('/logout', isAuthenticated, function (req, res) {
     console.log('logout was hit');
     req.session.destroy(function (err) {
       res.redirect('/');
     });
   });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  });
 };

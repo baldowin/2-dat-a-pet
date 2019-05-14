@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js'
 import Addapet from '../forms/addapet/addapet';
 import API from '../../../utils/API'
+import Addauthorizeduser from '../forms/addauthorizeduser/addauthorizeduser';
 
 
 
@@ -40,7 +41,11 @@ class Navbar extends Component {
                         <a><span className="black-text email">{this.state.user.UserEmail}</span></a>
                         <a><span className="black-text email">{this.state.user.phone}</span></a>
                     </div></li>
+                    <li>
+                    <Addauthorizeduser />    
+                    </li>
                 </ul>
+                
                 <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons waves-effect waves-light btn">Nav</i></a>
 
                 <a className="waves-effect waves-light btn modal-trigger" href="#modal1">Add-A-Pet</a>

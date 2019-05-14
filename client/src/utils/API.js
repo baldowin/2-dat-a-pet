@@ -24,6 +24,9 @@ export default {
   getUserAssociatedPets: function(){
     return axios.get("/api/users/associatedPets/");
   },
+  createAssociation:function(userData){
+    return axios.post("/api/createAssociation", userData);
+  },
   // Gets all the pets of a user
   getUserPets: function() {
     console.log("getUserPets API.js")
