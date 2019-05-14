@@ -35,6 +35,7 @@ class Dashboard extends Component {
                 {this.state.pets.length ? (
                     <div>
                         <h3>Your Pets</h3>
+                        <hr></hr>
                         <div className="row">
                             <div className="col s12" id="my-pet-wrapper">
                                 {this.state.pets.map(pet => (
