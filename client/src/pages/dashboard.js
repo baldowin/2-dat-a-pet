@@ -44,6 +44,7 @@ class Dashboard extends Component {
         return (
             <div>
                 < NavBar />
+                <div>
                 {this.state.pets.length ? (
                     <div>
                         <h3>Your Pets</h3>
@@ -58,25 +59,20 @@ class Dashboard extends Component {
                 ) : (
                     <h3>No Results to Display</h3>
                 )}
-
-
-
-                        {/* < Card pets={this.state.pets} /> */}
-                    </div>
-                    <div className="col s12">
-                        {console.log(this.state.associatedpets)}
-                        {this.state.associatedpets.length ? (
-                            <h3>Friends Pet</h3>
-                            ,
-                            this.state.associatedpets.map(pet => (
-                                <Card pet={pet} />
-                            ))
-                        ) : (
-                                <h3>No Results to Display</h3>
-                            )}
-                    </div>
                 </div>
 
+                <div className="col s12">
+                    {console.log(this.state.associatedpets)}
+                    {this.state.associatedpets.length ? (
+                        <h3>Friends Pet</h3>
+                        ,
+                        this.state.associatedpets.map(pet => (
+                            <Card pet={pet} />
+                            ))
+                        ) : (
+                            <h3>No Results to Display</h3>
+                        )}
+                </div>
                 < Footer />
             </div>
         )
