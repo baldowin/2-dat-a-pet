@@ -19,7 +19,7 @@ neuteredValue = "true"
                 <div className="card-content">
                  {console.log("this is inside card")}
                     {console.log(pet.pet.Dog)}
-                    <span className="card-title activator grey-text text-darken-4">{pet.pet.Dog.petName}<a class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">Info</i></a></span>
+                    <span className="card-title activator grey-text text-darken-4">{pet.pet.Dog.petName}<a class="btn-floating waves-effect waves-light red right"><i class="material-icons">+</i></a></span>
                     <a class="waves-effect waves-light btn">Update</a>
                 </div>
                 <div className="card-reveal">
