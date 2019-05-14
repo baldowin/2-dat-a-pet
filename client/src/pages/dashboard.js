@@ -5,7 +5,7 @@ import Card from './components/card/card';
 import Footer from './components/footer'
 import './dashboard.css'
 import API from '../utils/API'
-import {Route,Redirect} from 'react-router'
+import {Route,Redirect} from 'react-router';
 
 class Dashboard extends Component {
     state = {
