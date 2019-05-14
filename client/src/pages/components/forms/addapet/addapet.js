@@ -16,18 +16,14 @@ class Addapet extends Component {
 
   handleInputChange = event => {
     const { id, value } = event.target;
-    console.log(event.target);
     this.setState({
       [id]: value
     });
-    console.log(this.state[id]);
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log(this.state)
     if (this.state.petName && this.state.petType) {
-      console.log("inside if statement handle submit before API call")
       let neuteredValue = false;
       if (this.state.neutered === "Yes") {
         neuteredValue = true;
@@ -47,13 +43,9 @@ class Addapet extends Component {
         neutered: neuteredValue
       })
         .then(result =>
-          // console.log(result)
-          // ,
           window.location.replace(result.data)
         )
         .catch(err => console.log(err));
-    }else{
-      console.log("in else statement of handle submit")
     }
   };
 

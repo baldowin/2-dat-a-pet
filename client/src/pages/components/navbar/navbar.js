@@ -15,12 +15,9 @@ class Navbar extends Component {
         M.AutoInit();
     }
     userinfo = () => {
-        // console.log(req.body);
         API.getUser()
             .then(res => {
                 this.setState({ user: res.data });
-                console.log("api call");
-                console.log(res.data);
             }
             )
             .catch(err => console.log(err));

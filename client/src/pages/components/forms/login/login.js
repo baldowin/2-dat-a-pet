@@ -13,7 +13,6 @@ function Login(props)
 
 // render(props) 
 {
-  console.log(props);
   return (
     <div class="row">
       <form class="col s12">

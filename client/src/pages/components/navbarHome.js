@@ -16,25 +16,18 @@ class NavbarHome extends Component {
 
     handleInputChange = event => {
         const { id, value } = event.target;
-        console.log(event.target);
         this.setState({
           [id]: value
         });
-        console.log(this.state[id]);
       };
         
       handleFormSubmit = event => {
         event.preventDefault();
-        console.log("email & pass before API call")
-        console.log(this.state.email_input)
-        console.log(this.state.password_input)
           API.loginUser({
             email: this.state.email_input,
             password: this.state.password_input
           })
             .then(result => 
-            //   console.log(result)
-            //   ,
               window.location.replace(result.data)
               )
             .catch(err => console.log(err));

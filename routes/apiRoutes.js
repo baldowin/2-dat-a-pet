@@ -38,8 +38,6 @@ module.exports = function (app) {
   //admin route- find all pet data for single Owner
   //updated for newschema
   app.get("/admin/api/pets/:email", isAdmin, function (req, res) {
-    console.log("inside admin for single owner apiRoutes");
-    console.log("email param: " + req.params.email);
     db.Owner.findOne({
       where: { UserEmail: req.params.email },
       include: [{
@@ -63,7 +61,6 @@ module.exports = function (app) {
         include: [{ model: db.Dog }, { model: db.Cat }]
       }]
     }).then(function (view) {
-      console.log(view);
       res.json(view);
     });
   });
@@ -81,7 +78,6 @@ module.exports = function (app) {
         include: [{ model: db.Dog }, { model: db.Cat }]
       }]
     }).then(function (view) {
-      console.log(view);
       res.json(view);
     });
   });
@@ -91,7 +87,6 @@ module.exports = function (app) {
 
   //////THIS NO LONGER WORKS FOR ADMIN- IT LOOKS ONLY FOR LOGIN USER////////////////
   app.get("/api/users/pets", isAuthenticated, function (req, res) {
-    console.log("hit get pets for a user APIroute")
     db.Owner.findOne({
       where: { UserEmail: req.user.email },
       include: [{
@@ -102,7 +97,6 @@ module.exports = function (app) {
     }).then(function (view) {
       res.json(view);
     }).catch(function (error) {
-      console.log('inside catch error of APIroute')
       res.json(error);
     });
   });
@@ -135,8 +129,6 @@ module.exports = function (app) {
         UserEmail: req.body.associatesEmail
       }
     }).then(function (Owner) {
-      console.log("Owner instance from createAssociation")
-      console.log(Owner.dataValues.ownerId);
       let associatedId= Owner.dataValues.ownerId;
 
       db.Owner.findOne({
@@ -145,15 +137,11 @@ module.exports = function (app) {
         db.Pet.findAll({
           where: { OwnerOwnerId: view.dataValues.ownerId }
         }).then(function (view) {
-          console.log("view of pet.findAll");
-          console.log(view);
           view.forEach(function (pet) {
             pet.addOwner(ownerOwnerId= associatedId);
             res.json("/dashboard");
           })
         }).catch(function (error) {
-          console.log("error of createAssociation");
-          console.log(error);
         })
       })
 
@@ -209,7 +197,6 @@ module.exports = function (app) {
     db.Pet.FindOne({
       where: { id: req.params.id }
     }).then(function (result) {
-      console.log(result);
       if (result.pet.petType === "Dog") {
         db.Dog.update(req.body, {
           where: { PetPetId: req.params.id }
@@ -229,12 +216,10 @@ module.exports = function (app) {
 
   ////START OF AUTH APIS//////////////
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
-    console.log("api/login was hit");
     res.json("/dashboard");//this should be something else
   });
 
   app.get("/login", function (req, res) {
-    console.log("login route works");
     if (req.user) {
       res.redirect("/dashboard");
     } else {
@@ -245,8 +230,6 @@ module.exports = function (app) {
 
   // Auth // Signup - new user creation - 
   app.post("/api/signup", function (req, res) {
-    console.log("api/signup was hit");
-    console.log(req);
     db.User.create({
       email: req.body.email,
       password: req.body.password,
@@ -260,7 +243,6 @@ module.exports = function (app) {
         // res.json("success");
         res.redirect(307, "/api/login");
       }).catch(function (err) {
-        console.log(err);
         res.json(err);
       });
 
@@ -272,7 +254,6 @@ module.exports = function (app) {
 
   // Auth // Logout
   app.get('/logout', isAuthenticated, function (req, res) {
-    console.log('logout was hit');
     req.session.destroy(function (err) {
       res.redirect('/');
     });

@@ -17,16 +17,11 @@ class Dashboard extends Component {
         this.loadPets();
     }
     loadPets = () => {
-        // console.log(req.body);
         API.getUserPets()
             .then(res => {
-                console.log(res.data)
                 let petsState = res.data.Pet;
-                // console.log("api call"),
-                //  console.log(res.data.Pet),
                 API.getUserAssociatedPets()
                     .then(res => {
-                        console.log(res.data);
                         this.setState({ pets: petsState, associatedpets: res.data.Pets });
 
                     }

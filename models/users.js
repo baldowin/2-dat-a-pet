@@ -48,11 +48,9 @@ module.exports = function(sequelize, DataTypes) {
   // the below adds a function that runs when a user record is being created through this model
   User.addHook("beforeCreate", function(user) {
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-    console.log("beforeCreate hook");
   });
   User.addHook("beforeBulkCreate", function(user) {
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-    console.log("bulkCreate hook");
   });
   return User;
 };

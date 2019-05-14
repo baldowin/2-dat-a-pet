@@ -11,19 +11,15 @@ class Addauthorizeduser extends Component {
 
 handleInputChange = event => {
   const { id, value } = event.target;
-  console.log(event.target);
   this.setState({
     [id]: value
   });
-  console.log(this.state[id]);
 };
 
 handleFormSubmit = event => {
   event.preventDefault();
-  console.log(this.state)
     API.createAssociation({associatesEmail: this.state.associatesEmail})
       .then(result =>{
-        console.log(result)
         
         window.location.reload();
       })
