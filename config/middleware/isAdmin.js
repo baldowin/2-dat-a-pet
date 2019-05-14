@@ -1,3 +1,5 @@
+var db = require("../../models");
+
 module.exports = function (req, res, next) {
   console.log("isAdmin hit")
   // If the user is logged in, continue with the request to the restricted route
