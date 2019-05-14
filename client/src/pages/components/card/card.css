@@ -2,9 +2,19 @@
     width: 20%;
     margin-right: 10px;
 }
+.btn {
+    margin-right: 10px;
+}
 
 @media only screen and (max-device-width: 450px) {
     .card{
         width:100%
     }
 }
+
+@media only screen and (max-device-width: 780px) {
+    .card{
+        width:23%
+    }
+}
+

@@ -55,7 +55,7 @@ class Navbar extends Component {
                         </button>
                     </div>
                 </div>
-                <h4>Dat-A-Pet</h4>
+                <a href="/"><h4> Dat-A-Pet</h4></a>
             </div>
 
         );

@@ -1,7 +1,7 @@
 {
     "development": {
       "username": "root",
-      "password": "NmJ8693032050209?",
+      "password": "*****",
       "database": "datapet_db",
       "host": "localhost",
       "dialect": "mysql"
