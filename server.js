@@ -81,9 +81,9 @@ db.sequelize.sync(syncOptions).then(function () {
     //if we use bulkCreate you have to add [array]
     email: "unique@email.com",
     password: "TEST",
-    owner: true,
-    CSR: true,
-    admin: true
+    isOwner: true,
+    isCSR: true,
+    isAdmin: true
   }).then(function () {
     db.Owner.create({
       //if we use bulkCreate you have to add [array]
@@ -103,7 +103,7 @@ db.sequelize.sync(syncOptions).then(function () {
           createdAt: new Date(),
           updatedAt: new Date()
         }, {
-          petType: "Cat",
+          petType: "Dog",
           OwnerOwnerId: view.dataValues.ownerId,
           PetOwnerId: view.dataValues.ownerId,
           createdAt: new Date(),
@@ -122,17 +122,17 @@ db.sequelize.sync(syncOptions).then(function () {
             createdAt: new Date(),
             updatedAt: new Date()
           });
-          db.Cat.create({
+          db.Dog.create({
             PetPetId: view[1].dataValues.petId,
             petName: "Floyd",
             imageURL: " ",
             birthMonth: 01,
             birthYear: 18,
             petType: "Cat",
-            petSubtype: "Cheshire",
+            petSubtype: "Red Healer",
             gender: "Male",
             neutered: false,
-            medicalHistory: "suffers long boughts of disappearing",
+            medicalHistory: "chews everything",
             createdAt: new Date(),
             updatedAt: new Date(),
             FVRCP_2_months: true
@@ -140,10 +140,7 @@ db.sequelize.sync(syncOptions).then(function () {
           db.User.create({
             //if we use bulkCreate you have to add [array]
             email: "TEST@email.com",
-            password: "TEST",
-            owner: true,
-            CSR: true,
-            admin: true
+            password: "TEST"
           }).then(function () {
             db.Owner.create({
               //if we use bulkCreate you have to add [array]

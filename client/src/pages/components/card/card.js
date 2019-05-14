@@ -2,20 +2,30 @@ import React from 'react';
 import './card.css'
 
 
-function Card() {
+function Card(pet) {
     return (
         <div>
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/office.jpg" />
+            <div className="card">
+                <div className="card-image waves-effect waves-block waves-light">
+                    <img className="activator" src="http://4.bp.blogspot.com/_VmZpep1KUeg/TT-ZYxvRGqI/AAAAAAAAAIA/lInvcvqOkBY/s1600/cute-puppy-dog-wallpapers.jpg" />
                 </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                    <p><a href="#">This is a link</a></p>
+                <div className="card-content">
+                 {console.log("this is inside card")}
+                    {console.log(pet.pet.Dog)}
+                    <span className="card-title activator grey-text text-darken-4">{pet.pet.Dog.petName}<a class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">Info</i></a></span>
+                    <a class="waves-effect waves-light btn">Update</a>
                 </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                <div className="card-reveal">
+                <span className="card-title grey-text text-darken-4">Pet Info<i class="material-icons right">close</i></span>
+                <br></br>
+                    <ul className="collection">
+                        <li className="collection-item">birth Year: {pet.pet.Dog.birthYear}</li>
+                        <li className="collection-item">Gender: {pet.pet.Dog.gender}</li>
+                        <li className="collection-item">Breed: {pet.pet.Dog.petSubtype}</li>
+                        <li className="collection-item">Neutered: {pet.pet.Dog.neutered}</li>
+                    </ul>
+                    
+                    {console.log(pet.pet.Dog.birthMonth)}
                 </div>
             </div>
         </div>
