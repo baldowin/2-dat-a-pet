@@ -42,7 +42,7 @@ class Navbar extends Component {
                 </ul>
                 <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons waves-effect waves-light btn">Nav</i></a>
 
-                <a className="waves-effect waves-light btn modal-trigger" href="#modal1">Creat-A-Pet</a>
+                <a className="waves-effect waves-light btn modal-trigger" href="#modal1">Add-A-Pet</a>
 
                 <div id="modal1" className="modal">
                     <div className="modal-content">
@@ -50,7 +50,9 @@ class Navbar extends Component {
                                 < Addapet/>
                     </div>
                     <div className="modal-footer">
-                        <a href="#!" className="modal-close waves-effect waves-green btn-flat">Confirm</a>
+                        <button class="modal-close btn waves-effect waves-light" type="submit" name="action">Add-A-Pet
+                            <i className="material-icons right">send</i>
+                        </button>
                     </div>
                 </div>
                 <a href="/"><h4> Dat-A-Pet</h4></a>
