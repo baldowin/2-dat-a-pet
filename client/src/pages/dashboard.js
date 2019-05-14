@@ -45,44 +45,52 @@ class Dashboard extends Component {
             <div>
                 < NavBar />
                 <div>
-                {this.state.pets.length ? (
-                    <div>
-                        <h3>Your Pets</h3>
-                        <hr></hr>
-                        <div className="row">
-                            <div className="col s12" id="my-pet-wrapper">
-                                {this.state.pets.map(pet => (
-                                    <Card pet={pet} />
-                                ))}
+                    {this.state.pets.length ? (
+                        <div>
+                            <h3>Your Pets</h3>
+                            <hr></hr>
+                            <div className="row">
+                                <div className="col s12" id="my-pet-wrapper">
+                                    {this.state.pets.map(pet => (
+                                        <Card pet={pet} />
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                
 
-                ) : (
-                        <h3>No Results to Display</h3>
-                    )}
 
-                {this.state.associatedpets.length ? (
-                    <div>
-                        <h3>Friends Pet</h3>
-                        <hr></hr>
-                        <div className="row">
-                            <div className="col s12" id="my-pet-wrapper">
-                                {this.state.associatedpets.map(pet => (
-                                    <Card pet={pet} />
-                                ))}
+                    ) : (
+                            <div>
+                                <h3>Your Pets</h3>
+                                <hr></hr>
+                                <h3>No Results to Display</h3>
+                            </div>
+                        )}
+
+                    {this.state.associatedpets.length ? (
+                        <div>
+                            <h3>Friends Pets</h3>
+                            <hr></hr>
+                            <div className="row">
+                                <div className="col s12" id="my-pet-wrapper">
+                                    {this.state.associatedpets.map(pet => (
+                                        <Card pet={pet} />
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ) : (
-                        <h3>No Results to Display</h3>
+                    ) : (
+                            <div>
+                                <h3>Friends Pets</h3>
+                                <hr></hr>
+                                <h3>No Results to Display</h3>
+                            </div>
+                        )}
                     )}
-                )}
                 </div>
-                
+
                 < Footer />
-            </div> 
+            </div>
 
         )
     }
