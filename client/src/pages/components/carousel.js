@@ -17,8 +17,8 @@ class Slider extends Component {
                 <li>
                     <img src="https://lorempixel.com/580/250/nature/2"/>
                     <div class="caption left-align">
-                    <h3>Step 2: Create an Account</h3>
-                    <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                    <h3>Step 1: Create an Account</h3>
+                    <h5 class="light grey-text text-lighten-3">It's simple and easy to get started!</h5>
                     </div>
                 </li>
                 <li>
@@ -31,15 +31,15 @@ class Slider extends Component {
                 <li>
                     <img src="https://lorempixel.com/580/250/nature/3"/>
                     <div class="caption right-align">
-                    <h3>Right Aligned Caption</h3>
+                    <h3>Add a Pet</h3>
                     <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
                     </div>
                 </li>
                 <li>
                     <img src="https://lorempixel.com/580/250/nature/4"/>
                     <div class="caption center-align">
-                    <h3>This is our big Tagline!</h3>
-                    <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                    <h3>Share your pet's info with someone else</h3>
+                    <h5 class="light grey-text text-lighten-3">Pet Sitters, Family Members, Spouses, the possibilities are endless! Just type in their email in authorized users and your all set!</h5>
                     </div>
                 </li>
             </ul>
@@ -53,6 +53,7 @@ class Slider extends Component {
             //         <a class="carousel-item" href="#four!"><img src="https://lorempixel.com/800/400/food/4" /></a>
             //     </div>
             // </div> */
+
         )
     }
 }
