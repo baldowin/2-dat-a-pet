@@ -80,9 +80,9 @@ class SignUp extends Component {
                 <label for="phone_input">Phone Number</label>
               </div>
 
-               <button onClick= {this.handleFormSubmit} class="btn waves-effect waves-light" type="submit" name="action">Join!
-                            <i class="material-icons right">send</i>
-                            </button>
+              <button onClick= {this.handleFormSubmit} class="btn right waves-effect waves-light " type="submit" name="action">Join!
+                <i class="material-icons right">send</i>
+              </button>
 
             </div>
           </form>

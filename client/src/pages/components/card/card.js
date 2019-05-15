@@ -16,7 +16,7 @@ neuteredValue = "true"
                     <img className="activator" src="http://4.bp.blogspot.com/_VmZpep1KUeg/TT-ZYxvRGqI/AAAAAAAAAIA/lInvcvqOkBY/s1600/cute-puppy-dog-wallpapers.jpg" />
                 </div>
                 <div className="card-content">
-                    <span className="card-title activator grey-text text-darken-4">{pet.pet.Dog.petName}<a class="btn-floating waves-effect waves-light red right"><i class="material-icons">+</i></a></span>
+                    <span className="card-title activator grey-text text-darken-4">{pet.pet.Dog.petName}<a class="btn-floating waves-effect waves-light red right"><i class="material-icons">add</i></a></span>
                     <a class="waves-effect waves-light btn">Update</a>
                     <a class="waves-effect waves-light btn">Delete</a>
                 </div>
