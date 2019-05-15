@@ -43,8 +43,14 @@ class NavbarHome extends Component {
     render() {
         return (
             <div>
-
-                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Log in</a>
+              <div class="container">
+                <div class="row">
+                <div class="col l10 offset-l4 s10">
+                  <a class="waves-effect waves-light btn right" href="/signup"><i class="material-icons left">add_circle_outline</i>Sign Up</a>
+                  <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons left">lock_outline</i>Log in</a>
+                </div>
+                </div>
+              </div>
                     <div id="modal1" class="modal">
                         <div class="modal-content">
                             <h4>Login</h4>
@@ -60,7 +66,7 @@ class NavbarHome extends Component {
                         </div>
 
                     </div>
-                <a class="waves-effect waves-light btn-flat" href="/signup"></a>
+
             </div>
         )
     }
