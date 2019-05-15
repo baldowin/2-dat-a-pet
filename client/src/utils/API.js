@@ -10,7 +10,6 @@ export default {
   //Gets all pets for single owner
   //this includes owner data for that single owner
   adminPets: function(email){
-    console.log("inside adminPets api.js "+email)
     return axios.get("/admin/api/pets/"+email)
   },
   // Gets all pets under all Owners
@@ -24,9 +23,11 @@ export default {
   getUserAssociatedPets: function(){
     return axios.get("/api/users/associatedPets/");
   },
+  createAssociation:function(userData){
+    return axios.post("/api/createAssociation", userData);
+  },
   // Gets all the pets of a user
   getUserPets: function() {
-    console.log("getUserPets API.js")
     return axios.get("/api/users/pets/");
   },
   // Gets info of a user
@@ -43,7 +44,6 @@ export default {
   },
    // Saves a User to the database
    loginUser: function(userData) {
-     console.log("inside loginUser API util")
     return axios.post("/api/login", userData);
   },
   // Updates a User

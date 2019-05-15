@@ -173,12 +173,12 @@ db.sequelize.sync(syncOptions).then(function () {
                   updatedAt: new Date()
                 }).then(function (view) {
                   //id's in the database have an index of 1
-                  db.Pet.findOne({ where: { petId: 1 } }).then(function (Pet) {
-                    Pet.addOwner(ownerOwnerId = 2);
-                  });
-                  db.Pet.findOne({ where: { petId: 2 } }).then(function (Pet) {
-                    Pet.addOwner(ownerOwnerId = 2);
-                  });
+                  // db.Pet.findOne({ where: { petId: 1 } }).then(function (Pet) {
+                  //   Pet.addOwner(ownerOwnerId = 2);
+                  // });
+                  // db.Pet.findOne({ where: { petId: 2 } }).then(function (Pet) {
+                  //   Pet.addOwner(ownerOwnerId = 2);
+                  // });
                   db.Pet.findOne({ where: { petId: 3 } }).then(function (Pet) {
                     Pet.addOwner(ownerOwnerId = 1);
                   });

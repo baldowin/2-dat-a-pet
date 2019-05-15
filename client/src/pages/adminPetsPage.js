@@ -17,13 +17,9 @@ class adminPetsPage extends Component {
         this.loadPets();
     }
     loadPets = () => {
-        // console.log(req.body);
         API.adminPets("unique@email.com")
             .then(res => {
-                console.log(res);
                 this.setState({ pets: res.data.Pet, owners:res.data.ownerName })
-            // console.log("api call"),
-            //  console.log(res.data.Pet),
             }
             )
             .catch(err => console.log(err));
@@ -41,7 +37,6 @@ class adminPetsPage extends Component {
                 < NavBar />
                 <div className="row">
                     <div className="col s12">
-                        {console.log(this.state.pets)}
                         {this.state.pets.length ? (<div>
                             <h3>Pets for {this.state.owners}</h3>
 

@@ -15,18 +15,14 @@ class SignUp extends Component {
 
   handleInputChange = event => {
     const { id, value } = event.target;
-    console.log(event.target);
     this.setState({
       [id]: value
     });
-    console.log(this.state[id]);
   };
     
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log(this.state.email_input)
     if (this.state.first_name && this.state.email_input) {
-      console.log("inside if statement before API call")
       API.addUser({
         ownerName: this.state.first_name+" "+this.state.last_name,
         phone: this.state.phone_input,
@@ -34,8 +30,6 @@ class SignUp extends Component {
         password: this.state.password_input
       })
         .then(result => 
-          // console.log(result)
-          // ,
           window.location.replace(result.data)
           )
         .catch(err => console.log(err));
@@ -46,8 +40,6 @@ class SignUp extends Component {
         M.AutoInit();
     }
     render() {
-      console.log("reRender");
-      console.log(this.state);
       return(
         <div class="row">
           <form id="signUp_form" class="col s12">
