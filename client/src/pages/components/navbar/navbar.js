@@ -41,6 +41,9 @@ class Navbar extends Component {
                     <li>
                     <Addauthorizeduser />    
                     </li>
+                    <li>
+                        <a href="/logout">Logout</a>
+                    </li>
                 </ul>
                 
                 <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons waves-effect waves-light btn">Nav</i></a>
