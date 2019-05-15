@@ -42,7 +42,7 @@ class Navbar extends Component {
                     <Addauthorizeduser />    
                     </li>
                     <li>
-                        <a href="/logout">Logout</a>
+                        <a className="waves-effect waves-light btn" href="/logout">Logout</a>
                     </li>
                 </ul>
                 
